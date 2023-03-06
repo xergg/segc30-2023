@@ -11,5 +11,6 @@ public enum Commands {
 	WALLET,
 	CLASSIFY,
 	TALK,
-	READ
+	READ,
+	QUIT
 }

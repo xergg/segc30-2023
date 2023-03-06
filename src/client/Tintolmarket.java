@@ -1,5 +1,6 @@
 package client;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -46,15 +47,67 @@ public class Tintolmarket {
 			Message auth = (Message) in.readObject();
 			
 			if (auth.getType() == Commands.VALID_LOGIN) {
-				
+				System.out.println(auth.getMessage());
+				System.out.println(menuToString());
 			} else if(auth.getType() == Commands.INVALID_LOGIN) {
-				
+				System.err.println(auth.getMessage());
+				System.exit(-1);
 			}
 			
-		} catch() {
+			String command = null;
+
+			while(!(command = sc.nextLine()).equals("quit")) {
+				readCommand(command);
+			}
+
+			sc.close();
 			
+		} catch(IOException e) {
+			System.err.println("Error communicating with server");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 
 	}
 
+	private static void readCommand(String command) {
+		
+		String[] commandArray = command.split(" ");
+		
+		try {
+
+			switch (commandArray[0]) {
+
+			case "add":
+				break;
+			case "sell":
+				break;
+			case "view":
+				break;
+			case "buy":
+				break;
+			case "wallet":
+				break;
+			case "classify":
+				break;
+			case "talk":
+				break;
+			case "read":
+				break;
+		
+	}
+
+	
+	private static String menuToString() {
+		return "Available operations: \n"+
+				"- add <wine> <image> \n" + 
+				"- sell <wine> <value> <quantity>\n" + 
+				"- view <wine> \n" + 
+				"- buy <wine> <seller> <quantity> \n" + 
+				"- wallet \n" + 
+				"- classify <wine> <stars>  \n" + 
+				"- talk <user> <message> \n" + 
+				"- read - \n" +
+				"- quit\n";
+	}
 }
