@@ -85,25 +85,62 @@ public class Tintolmarket {
 					System.out.println("Example: add <wine> <image>");
 					return;
 				}
-				
 				break;
-			case "sell":
-				break;
-			case "view":
-				break;
-			case "buy":
-				break;
-			case "wallet":
-				break;
-			case "classify":
-				break;
-			case "talk":
-				break;
-			case "read":
-		
-	}
 
+			case "sell":
+				if(commandArray.length != 4){
+					System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
+					System.out.println("Example : sell <wine> <value> <quantity>");
+				}
+				break;
+
+			case "view":
+				if(commandArray.length != 2){
+					System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
+					System.out.println("Example: view <wine>");
+				}
+				break;
+
+			case "buy":
+			if(commandArray.length != 4){
+				System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
+				System.out.println("Example: buy <wine> <seller> <quantity>");
+			}
+				break;
+
+			case "wallet":
+			// no arguments other than wallet or w, therefore should redirect to menu
+			if(commandArray.length != 1){
+				System.out.println("Please type out a command.");
+			}
+				break;
+
+			case "classify":
+			if(commandArray.length != 3){
+				System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
+				System.out.println("Example: classify <wine> <stars>");
+			}
+				break;
+
+			case "talk":
+			if(commandArray.length != 3){
+				System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
+				System.out.println("Example: talk <user> <message>");
+			}
+				break;
+				
+			case "read":
+			// no arguments other than read or r, therefore should redirect to menu
+			if(commandArray.length != 1){
+				System.out.println("Please type out a command.");
+			}
+				break;
+			}
+	} catch (Exception e){
+		System.out.println(e.getMessage());
+	}
 	
+}
 	private static String menuToString() {
 		return "Available operations: \n"+
 				"- add <wine> <image> \n" + 
