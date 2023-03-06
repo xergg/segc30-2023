@@ -3,6 +3,10 @@ package client;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Scanner;
+
+import lib.Commands;
+import lib.Message;
 
 public class Tintolmarket {
 	
@@ -34,11 +38,22 @@ public class Tintolmarket {
 			in = new ObjectInputStream(socket.getInputStream());
 
 			System.out.println("Connected to server");
-						
+
+			//ClientID
+			username = args[2];
+			Scanner sc = new Scanner(System.in);
+			out.writeObject(username);
+			Message auth = (Message) in.readObject();
 			
-		} 
-		
-		
+			if (auth.getType() == Commands.VALID_LOGIN) {
+				
+			} else if(auth.getType() == Commands.INVALID_LOGIN) {
+				
+			}
+			
+		} catch() {
+			
+		}
 
 	}
 
