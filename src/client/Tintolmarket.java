@@ -11,6 +11,7 @@ import lib.Message;
 
 public class Tintolmarket {
 	
+	private static final String WRONG_NUMBER_OF_ARGUMENTS = "Wrong number of arguments";
 	static ObjectOutputStream out;
 	static ObjectInputStream in;
 	static String username;
@@ -18,7 +19,7 @@ public class Tintolmarket {
 	public static void main(String[] args) {
 
 		if(args.length < 4) {
-			System.out.println( "Wrong number of arguments");
+			System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
 			System.out.println("Example: Tintolmarket <serverAddress> <userID> [password]\r\n");
 			System.exit(-1);
 		}
@@ -79,6 +80,12 @@ public class Tintolmarket {
 			switch (commandArray[0]) {
 
 			case "add":
+				if(commandArray.length != 3) {
+					System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
+					System.out.println("Example: add <wine> <image>");
+					return;
+				}
+				
 				break;
 			case "sell":
 				break;
@@ -93,7 +100,6 @@ public class Tintolmarket {
 			case "talk":
 				break;
 			case "read":
-				break;
 		
 	}
 
