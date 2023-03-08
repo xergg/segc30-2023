@@ -7,11 +7,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import lib.Commands;
+import lib.Message;
+
 public class TintolmarketServer_API {
 	
 	private static File uFile;
 
-    public static boolean authentication(ObjectOutputStream outStream, ObjectInputStream inStream)
+    public static void authentication(ObjectOutputStream outStream, ObjectInputStream inStream)
     throws IOException, ClassNotFoundException{
 
     	uFile = new File ("users.txt");
@@ -21,8 +24,9 @@ public class TintolmarketServer_API {
 
         String clientID = inStream.readObject().toString();
         String password = inStream.readObject().toString();
-        
-        return login(clientID, password) ? true : false;
+        Message m;
+        m = login(clientID, password) ? new Message(Commands.VALID_LOGIN, "Valid login") : new Message(Commands.INVALID_LOGIN, "Invalid login");
+        outStream.writeObject(m);
     }
 
     public static void saveToFile(String currentClient, String password) {

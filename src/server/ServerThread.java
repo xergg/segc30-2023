@@ -21,8 +21,7 @@ public class ServerThread extends Thread {
 			ObjectInputStream inStream = new ObjectInputStream(socket.getInputStream());
 			
 			//AUTHENTICATION
-	        if(!TintolmarketServer_API.authentication(outStream, inStream))
-	        	return;
+	        TintolmarketServer_API.authentication(outStream, inStream);
 	        
 			String[] commandArray = new String().split(" ");
 			switch (commandArray[0]){
