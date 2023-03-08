@@ -1,13 +1,19 @@
 package lib;
 
 public class Message {
-
+	private Commands type;
+	private String message;
+	
+	public Message(Commands t, String message) {
+		this.type = t;
+		this.message = message;
+	}	
+	
 	public Commands getType() {
-		return null;
+		return type;
 	}
 
 	public String getMessage() {
-		// TODO Auto-generated method stub
-		return null;
+		return message;
 	}
 }
