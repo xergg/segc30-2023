@@ -15,10 +15,11 @@ public class Tintolmarket {
 	static ObjectOutputStream out;
 	static ObjectInputStream in;
 	static String username;
+	static String password;
 	
 	public static void main(String[] args) {
 
-		if(args.length < 4) {
+		if(args.length < 2) {
 			System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
 			System.out.println("Example: Tintolmarket <serverAddress> <userID> [password]\r\n");
 			System.exit(-1);
@@ -42,9 +43,19 @@ public class Tintolmarket {
 			System.out.println("Connected to server");
 
 			//ClientID
-			username = args[2];
-			Scanner sc = new Scanner(System.in);
+			username = args[2];	
 			out.writeObject(username);
+			
+			//Password
+			Scanner sc = new Scanner(System.in);
+			if(args.length < 4) {
+				System.out.println("Please insert Password: ");
+				password = sc.nextLine();
+			} else 
+				password = args[3];			
+			out.writeObject(password);
+	
+			
 			Message auth = (Message) in.readObject();
 			
 			if (auth.getType() == Commands.VALID_LOGIN) {
@@ -57,10 +68,9 @@ public class Tintolmarket {
 			
 			String command = null;
 
-			while(!(command = sc.nextLine()).equals("quit")) {
+			while(!(command = sc.nextLine()).equals("quit")) 
 				readCommand(command);
-			}
-
+			
 			sc.close();
 			
 		} catch(IOException e) {
