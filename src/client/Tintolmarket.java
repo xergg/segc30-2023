@@ -15,7 +15,6 @@ public class Tintolmarket {
 	static ObjectOutputStream out;
 	static ObjectInputStream in;
 	static String username;
-	static String password;
 	
 	public static void main(String[] args) {
 
@@ -45,6 +44,7 @@ public class Tintolmarket {
 			//ClientID
 			username = args[2];	
 			out.writeObject(username);
+			String password;
 			
 			//Password
 			Scanner sc = new Scanner(System.in);
