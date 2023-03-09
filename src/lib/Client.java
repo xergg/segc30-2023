@@ -9,7 +9,7 @@ public class Client {
 	
 	public Client(String username) {
 		this.username = username;
-		this.balance = balance;
+		this.balance = 200;
 		this.wineList = new ArrayList<>();
 	}
 	
