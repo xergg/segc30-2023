@@ -1,13 +1,25 @@
 package server;
 
 import java.io.ObjectInputStream;
+import java.lang.reflect.Method;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ServerThread extends Thread {
 
-	private Socket socket = null;
+	private final Socket socket;
+	private static final Map<String, Method> skelMethodsMap;
+
+	static {
+		// Colocamos os metodos do skel num mapa, em que cada key e' o nome do metodo em string.
+		Method [] methods = TintolmarketServer_API.class.getMethods();
+		skelMethodsMap = new HashMap<>();
+		Arrays.stream( methods ).forEach( m -> skelMethodsMap.put( m.getName(), m ) );
+	}
 
 	ServerThread(Socket clientSocket) {
 		this.socket = clientSocket;
@@ -19,39 +31,21 @@ public class ServerThread extends Thread {
 
 			ObjectOutputStream outStream = new ObjectOutputStream(socket.getOutputStream());
 			ObjectInputStream inStream = new ObjectInputStream(socket.getInputStream());
-			
+
+			// Criamos um skel do server para a thread com as streams definidas acima
+			TintolmarketServer_API serverSkel = new TintolmarketServer_API( inStream, outStream );
+
 			//AUTHENTICATION
-			String clientID = TintolmarketServer_API.authentication(outStream, inStream);
-            if(clientID.isEmpty())	
-            	System.out.println( "Client " + clientID + " login sucessful!" );
+			String clientID = serverSkel.authentication(outStream, inStream);
+			if(clientID.isEmpty())	
+				System.out.println( "Client " + clientID + " login sucessful!" );
 
-			String[] commandArray = new String().split(" ");
-			switch (commandArray[0]){
+			while(true) 
+				serverSkel.invoke(inStream, outStream, skelMethodsMap);
 
-				case "a":
-				case "add":
-					outStream.writeObject(TintolmarketServer_API.add(commandArray[1],commandArray[2]));
-				break;
-			
-				case "s":
-				case "sell":
-					outStream.writeObject(TintolmarketServer_API.sell(commandArray[1], Double.parseDouble(commandArray[2]), Double.parseDouble(commandArray[3]) ));
-		
-				case "v":
-				case "view":
-					outStream.writeObject(TintolmarketServer_API.view(commandArray[1]));
-	
-				case "b":
-				case "buy":
-					outStream.writeObject(TintolmarketServer_API.buy(commandArray[1], Double.parseDouble(commandArray[2]), Double.parseDouble(commandArray[3])));
-
-				case "w":
-				case "wallet":
-					outStream.writeObject(TintolmarketServer_API.wallet());
-			}
-	} catch(Exception e) {
-		e.getStackTrace();
-	}
+		} catch(Exception e) {
+			e.getStackTrace();
+		}
 
 	}
 }

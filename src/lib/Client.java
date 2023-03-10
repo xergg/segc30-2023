@@ -11,6 +11,5 @@ public class Client {
 		this.username = username;
 		this.balance = 200;
 		this.wineList = new ArrayList<>();
-	}
-	
+	}	
 }

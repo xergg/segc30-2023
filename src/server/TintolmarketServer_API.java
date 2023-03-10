@@ -5,17 +5,32 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Map;
 
-import lib.Commands;
-import lib.Message;
+import lib.enums.Commands;
+import static lib.Utils.invokeMethod;
+
 
 public class TintolmarketServer_API {
 
 	private static File uFile;
 
-	public static String authentication(ObjectOutputStream outStream, ObjectInputStream inStream)
+	private final ObjectInput inStream;
+	private final ObjectOutput outStream;
+
+	public TintolmarketServer_API( ObjectInput inStream, ObjectOutput outStream )
+	{
+		this.inStream = inStream;
+		this.outStream = outStream;
+	}
+
+	public String authentication(ObjectOutputStream outStream, ObjectInputStream inStream)
 			throws IOException, ClassNotFoundException{
 
 		uFile = new File ("users.txt");
@@ -27,9 +42,8 @@ public class TintolmarketServer_API {
 		String password = inStream.readObject().toString();
 
 		boolean clientAccess = login(clientID, password);
-		Message m = clientAccess? new Message(Commands.VALID_LOGIN, "Valid login") : 
-			new Message(Commands.INVALID_LOGIN, "Invalid login");
-		outStream.writeObject(m);
+		Commands ct = clientAccess? Commands.VALID_LOGIN : Commands.INVALID_LOGIN;
+		outStream.writeObject(ct);
 
 		return clientAccess ? clientID : "";
 	}
@@ -52,7 +66,7 @@ public class TintolmarketServer_API {
 	}
 
 	private static boolean login(String clientID, String password) throws IOException {
-		String saveU = clientID + "/" + password + "/n";
+		
 		BufferedReader br = new BufferedReader(new FileReader(uFile));
 		boolean registered = false;
 		boolean passCorrect = false;
@@ -65,31 +79,23 @@ public class TintolmarketServer_API {
 				passCorrect = id[1].equals(password)? true : false;
 			}
 		}
-
+		
+		br.close();
+		
 		if(!registered)
 			saveToFile(clientID, password);
 
 		return registered ? passCorrect : true;
 	}
 
-	public static Object add(String string, String string2) {
-		return null;
-	}
+	public void invoke(ObjectInputStream inStream, ObjectOutputStream outStream, Map<String, Method> skelmethods) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, IOException {
+		Commands command = (Commands) inStream.readObject();
 
-	public static Object sell(String string, double parseDouble, double parseDouble2) {
-		return null;
-	}
+		if(command.equals(Commands.QUIT)) {
+			System.out.println("Client quitted!");
+		}
 
-	public static Object view(String string) {
-		return null;
-	}
-
-	public static Object buy(String string, double parseDouble, double parseDouble2) {
-		return null;
-	}
-
-	public static Object wallet() {
-		return null;
+		invokeMethod(this, skelmethods, command);
 	}
 
 
