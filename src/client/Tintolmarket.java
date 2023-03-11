@@ -1,25 +1,19 @@
 package client;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.lang.reflect.Method;
-import java.net.Socket;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import lib.Client;
 import lib.enums.Commands;
 import static lib.Utils.*;
 
 public class Tintolmarket {
 
 	private static final String WRONG_NUMBER_OF_ARGUMENTS = "Wrong number of arguments";
-	static ObjectOutputStream out;
-	static ObjectInputStream in;
-	static String username;
+	private static final Client client = new Client();
 
 	public static void main(String[] args) {
 
@@ -29,61 +23,55 @@ public class Tintolmarket {
 			System.exit(-1);
 		}
 
-		Socket socket = null;
-
 		//default
 		int tcpPort = 12345;
-		String[] hostPort = args[0].split(":");
-		String host = hostPort[0];
-
-		if(hostPort.length == 2)
-			tcpPort = Integer.parseInt(hostPort[1]);
+		String host = args[0];
+		
+		if ( args[0].contains( ":" ) ) {
+            String[] hostPort = args[0].split( ":" );
+            host = hostPort[0];
+            
+            tcpPort = Integer.parseInt( hostPort[1] );
+            
+            if ( tcpPort <= 0 ) {
+                System.out.println("Port is not valid");
+                System.exit( -1 );
+            }
+        }
 
 		try {
-			socket =  new Socket(host, tcpPort); 
-			out = new ObjectOutputStream(socket.getOutputStream());
-			in = new ObjectInputStream(socket.getInputStream());
 
+			client.connect(host, tcpPort);
+			
 			System.out.println("Connected to server");
 
-			//ClientID
-			username = args[1];	
-
-			if(username.matches(".*[\\\\/:*?\"<>|].*")){
-				System.err.println("\nInvalid username. Characters \"\\ / : * ? \" < > | \" not allowed");
-				System.exit(-1);
-			}
-
-			out.writeObject(username);
-			String password;
-
-			//Password
-			Scanner sc = new Scanner(System.in);
-			if(args.length < 4) {
-				System.out.println("Please insert Password: ");
-				password = sc.nextLine();
-			} else 
-				password = args[3];			
-			out.writeObject(password);
-
-			Commands auth = (Commands) in.readObject();
-
-			if (auth.equals(Commands.VALID_LOGIN)) {
-				System.out.println(auth.getMethodName());
+			boolean validLogin = client.login(args);
+			
+			if (validLogin) {
+				System.out.println("Login sucessful!");
 				System.out.println(menuToString());
-			} else if(auth.equals(Commands.INVALID_LOGIN)) {
-				System.err.println(auth.getMethodName());
+			} else {
+				System.err.println("Login failed!");
 				System.exit(-1);
 			}
-
+			
 			String command = null;
+			Scanner sc = new Scanner(System.in);
+			
+			Method [] methods = Client.class.getMethods();
+			Map <String, Method> stubMethodsMap = new HashMap<>();
+			Arrays.stream( methods ).forEach( m -> stubMethodsMap.put( m.getName(), m));
 
 			while(!(command = sc.nextLine()).equals("quit")) {
 				System.out.println( "\nInsert command: " );
-				readCommand(username, command);
+				readCommand(command, stubMethodsMap);
 			}
 
 			sc.close();
+
+			
+			
+			System.out.println("Connected to server");
 
 		} catch(IOException e) {
 			System.err.println("Error communicating with server");
@@ -92,23 +80,19 @@ public class Tintolmarket {
 		}
 	}
 
-	private static void readCommand(String useranme, String command) {
+
+	private static void readCommand(String command, Map<String, Method> stubMethodsMap) {
 
 		String[] commandArray = command.split(" ", 3);
-
-		// Colocamos os metodos do client num mapa, em que cada key e' o nome do metodo em string.
-		Method [] methods = Client.class.getMethods();
-		Map <String, Method> stubMethodsMap = new HashMap<>();
-		Arrays.stream( methods ).forEach( m -> stubMethodsMap.put( m.getName(), m));
-        Commands commandEnum = Commands.valueOfType( commandArray[0] );
+		Commands commandEnum = Commands.valueOfType(commandArray[0]);
 
 		try {
-			invokeMethod( new Client(username), stubMethodsMap, commandEnum, commandArray, true );			
+			invokeMethod(client, stubMethodsMap, commandEnum, commandArray, true );			
 		} catch (Exception e){
 			System.out.println(e.getMessage());
 		}
-
 	}
+
 
 	private static String menuToString() {
 		return "Available operations: \n"+
@@ -123,3 +107,4 @@ public class Tintolmarket {
 				"- quit\n";
 	}
 }
+		

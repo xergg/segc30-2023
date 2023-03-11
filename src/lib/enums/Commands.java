@@ -14,11 +14,15 @@ public enum Commands {
 	CLASSIFY(CommandType.FROM_CLIENT, "Classify"),
 	TALK(CommandType.FROM_CLIENT, "Talk"),
 	READ(CommandType.FROM_CLIENT, "Read"),
-	QUIT(CommandType.FROM_CLIENT, "Quit");
+	QUIT(CommandType.FROM_CLIENT, "Quit"), 
+	SUCCESS(CommandType.FROM_SERVER, "Sucess"), 
+	BALANCE_NOT_ENOUGH(CommandType.FROM_SERVER, "Balance is not enough"), 
+	QUANTITY_NOT_ENOUGH(CommandType.FROM_SERVER, "Quantity is not enough");
 
 	public enum CommandType {
 		FROM_CLIENT, // operacao pedida a partir do cliente
-		STATE // respostas de estado das operacoes
+		STATE, // respostas de estado das operacoes
+		FROM_SERVER
 	}
 	
 	private final CommandType type;

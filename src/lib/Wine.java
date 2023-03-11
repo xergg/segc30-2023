@@ -2,4 +2,27 @@ package lib;
 
 public class Wine {
 
+	private String wineID;
+	private int rating;
+	private int unity;
+
+	public Wine(String wineID, String filename) {
+		
+		this.wineID = wineID;
+		this.rating = 0;
+		this.unity = 0;
+	}	
+	
+	public String getName() {
+		return wineID;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public int getUnity() {
+		return unity;
+	}
+	
 }
