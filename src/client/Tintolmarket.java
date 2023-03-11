@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-import lib.Message;
 import lib.enums.Commands;
 
 public class Tintolmarket {
@@ -55,13 +54,12 @@ public class Tintolmarket {
 				password = args[3];			
 			out.writeObject(password);
 	
-			
 			Commands auth = (Commands) in.readObject();
 			
-			if (auth.getType().equals(Commands.VALID_LOGIN)) {
+			if (auth.equals(Commands.VALID_LOGIN)) {
 				System.out.println(auth.getMethodName());
 				System.out.println(menuToString());
-			} else if(auth.getType().equals(Commands.INVALID_LOGIN)) {
+			} else if(auth.equals(Commands.INVALID_LOGIN)) {
 				System.err.println(auth.getMethodName());
 				System.exit(-1);
 			}

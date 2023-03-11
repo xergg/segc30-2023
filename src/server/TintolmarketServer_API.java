@@ -97,9 +97,4 @@ public class TintolmarketServer_API {
 
 		invokeMethod(this, skelmethods, command);
 	}
-
-
-
-
-
 }
