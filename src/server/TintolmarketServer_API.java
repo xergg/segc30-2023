@@ -28,8 +28,6 @@ public class TintolmarketServer_API {
 
 	private final ObjectInput inStream;
 	private final ObjectOutput outStream;
-	private String currentClientID;
-
 
 	public TintolmarketServer_API(Socket socket) throws IOException {
 		outStream = new ObjectOutputStream(socket.getOutputStream());
@@ -90,11 +88,7 @@ public class TintolmarketServer_API {
 		if(!registered) {
 			saveToFile(clientID, password);
 			AccountHandler.addAccount(clientID);
-			currentClientID = clientID;
 		}
-
-		if(passCorrect)
-			currentClientID = clientID;
 
 		return registered ? passCorrect : true;
 	}
@@ -204,12 +198,8 @@ public class TintolmarketServer_API {
 	}
 
 	public void talk (String user, String msg) throws IOException, ClassNotFoundException {
-
-		outStream.writeObject(Commands.WALLET);
-		outStream.writeObject(username);
-		outStream.writeObject(user);
-		outStream.writeObject(msg);
-		Commands message = (Commands) inStream.readObject();
+		
+		//DUNNO ainda
 
 	}
 }
