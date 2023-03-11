@@ -53,7 +53,8 @@ public class Tintolmarketskel {
 
 		Commands auth = (Commands) inStream.readObject();
 		sc.close();
-		return auth.equals(Commands.VALID_LOGIN) ? true : false;
+		
+		return auth.equals(Commands.VALID_LOGIN);
 	}
 
 	public void add (String wineID, String filename) throws IOException, ClassNotFoundException {

@@ -54,7 +54,7 @@ public class TintolmarketServer_API {
 	}
 
 	public static void saveToFile(String currentClient, String password) {
-		String saveU = currentClient + "/" + password + "/n";
+		String saveU = currentClient + "/" + password + "\n";
 
 		try {
 
@@ -81,7 +81,7 @@ public class TintolmarketServer_API {
 			String[] id = line.split("/");
 			if(id[0].equals(clientID)) {
 				registered = true;
-				passCorrect = id[1].equals(password)? true : false;
+				passCorrect = id[1].equals(password);
 			}
 		}
 
