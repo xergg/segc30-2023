@@ -37,6 +37,16 @@ public enum Commands {
 		return Optional.ofNullable( this.stubMethodName );
 	}
 
+	public static Commands valueOfType(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getNumberOfArguments() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }
 

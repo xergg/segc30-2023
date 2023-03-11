@@ -7,7 +7,7 @@ import java.net.Socket;
 public class TintolmarketServer {
 
 	public static void main(String[] args) {
-		if (args.length < 2) {
+		if (args.length < 1) {
 			System.out.println("Wrong number of arguments");
 			System.out.println("Example: TintolmarketServer <port>");
 			System.exit(-1);
