@@ -16,6 +16,8 @@ import java.lang.reflect.Method;
 import java.net.Socket;
 import java.util.Map;
 
+import javax.security.auth.login.AccountNotFoundException;
+
 import lib.AccountHandler;
 import lib.Wine;
 import lib.WineHandler;
@@ -109,12 +111,14 @@ public class TintolmarketServer_API {
 		String wineID = (String) inStream.readObject();
 		String filename = (String) inStream.readObject();
 
-		boolean	isValidUser = AccountHandler.checkValid(userID);
-
-		if(isValidUser) {
-			WineHandler.create(wineID, filename, userID);
-			outStream.writeObject(Commands.SUCCESS);
+		try {
+			AccountHandler.checkValid(userID);
+		} catch (AccountNotFoundException e) {
+			e.printStackTrace();
 		}
+
+		WineHandler.create(wineID, filename);
+		outStream.writeObject(Commands.SUCCESS);
 
 	}
 
@@ -125,12 +129,16 @@ public class TintolmarketServer_API {
 		int value = (int) inStream.readObject();
 		int quantity = (int) inStream.readObject();
 
-		boolean isValidUser = AccountHandler.checkValid(userID);
-
-		if(isValidUser) {
-			WineHandler.add(wineID, value, quantity, userID);
-			outStream.writeObject(Commands.SUCCESS);
+		try {
+			AccountHandler.checkValid(userID);
+		} catch (AccountNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		WineHandler.add(wineID, value, quantity, userID);
+		outStream.writeObject(Commands.SUCCESS);
+
 	}
 
 	public void view () throws IOException, ClassNotFoundException {
@@ -149,56 +157,65 @@ public class TintolmarketServer_API {
 		int quantity = (int) inStream.readObject();
 
 
-		boolean isValidUser = AccountHandler.checkValid(userID);
-
-		if(isValidUser) {
-			double cash = WineHandler.getPrice(wineID, seller, quantity);
-			if(cash == -1) {
-				outStream.writeObject(Commands.ERROR);
-				return;
-			}
-			
-			if(cash == 0) {
-				outStream.writeObject(Commands.QUANTITY_NOT_ENOUGH);
-				return;
-			}
-			
-			if (!AccountHandler.hasEnoughMoney(cash)) {
-				outStream.writeObject(Commands.BALANCE_NOT_ENOUGH);
-				return;
-			}
-			
-			outStream.writeObject(Commands.SUCCESS);
+		try {
+			AccountHandler.checkValid(userID);
+		} catch (AccountNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+
+		double cash = WineHandler.getPrice(wineID, seller, quantity);
+		if(cash == -1) {
+			outStream.writeObject(Commands.ERROR);
+			return;
+		}
+
+		if(cash == 0) {
+			outStream.writeObject(Commands.QUANTITY_NOT_ENOUGH);
+			return;
+		}
+
+		if (!AccountHandler.hasEnoughMoney(userID, cash)) {
+			outStream.writeObject(Commands.BALANCE_NOT_ENOUGH);
+			return;
+		}
+
+		WineHandler.buyWine(wineID, seller, quantity);
+		AccountHandler.buy(userID, seller, cash);
+		outStream.writeObject(Commands.SUCCESS);
+
 	}
 
 
 	public void wallet () throws IOException, ClassNotFoundException {
-		
+
 		String userID = (String) inStream.readObject();
-		boolean isValidUser = AccountHandler.checkValid(userID);
-		
-		if(isValidUser) {
-			double balance = AccountHandler.getBalance();
-			outStream.writeObject(balance);
+		try {
+			AccountHandler.checkValid(userID);
+		} catch (AccountNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		double balance = AccountHandler.getBalance(userID);
+		outStream.writeObject(balance);
+
 
 	}
 
 
-
 	public void classify () throws IOException, ClassNotFoundException {
-		
+
 		String wineID = (String) inStream.readObject();
 		int stars = (int) inStream.readObject();
-		
+
 		WineHandler.classify(wineID, stars);
 		outStream.writeObject(Commands.SUCCESS);
 
 	}
 
 	public void talk (String user, String msg) throws IOException, ClassNotFoundException {
-		
+
 		//DUNNO ainda
 
 	}

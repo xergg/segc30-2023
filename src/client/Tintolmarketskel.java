@@ -59,7 +59,6 @@ public class Tintolmarketskel {
 	public void add (String wineID, String filename) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.ADD);
-
 		outStream.writeObject(username);
 		outStream.writeObject(wineID);
 		outStream.writeObject(filename);

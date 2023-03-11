@@ -7,7 +7,7 @@ public class Wine {
 	private int unity;
 	private String seller;
 
-	public Wine(String wineID, String filename, String seller) {
+	public Wine(String wineID, String filename) {
 		
 		this.wineID = wineID;
 		this.rating = 0;

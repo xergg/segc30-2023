@@ -3,29 +3,29 @@ package lib;
 
 public class WineHandler {
 
-	public static void create(String wineID, String filename, String userID) {
-		// TODO Auto-generated method stub
-		
+	public static void create(String wineID, String filename) {
+		if(wineID != null && filename != null)
+			WineCatalog.create(new Wine(wineID, filename));
 	}
 
 	public static void add(String wineID, int value, int quantity, String userID) {
-		// TODO Auto-generated method stub
-		
+		WineCatalog.add(wineID, value, quantity, userID);
 	}
 
 	public static Wine getWine(String wineID) {
-		// TODO Auto-generated method stub
-		return null;
+		return WineCatalog.getWine(wineID);
 	}
 
 	public static double getPrice(String wineID, String seller, int quantity) {
-		// TODO Auto-generated method stub
-		return 0;
+		return WineCatalog.getPrice(wineID, seller, quantity);
 	}
 
 	public static void classify(String wineID, int stars) {
-		// TODO Auto-generated method stub
-		
+		WineCatalog.classify(wineID, stars);
+	}
+
+	public static void buyWine(String wineID, String seller, int quantity) {
+		WineCatalog.buyWime(wineID, seller, quantity);		
 	}
 
 }

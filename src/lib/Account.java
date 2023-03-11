@@ -17,8 +17,8 @@ public class Account {
 		return balance;
 	}
 
-	public void setBalance( double balance ) {
-		this.balance = balance;
+	public void setBalance( double balance, boolean add ) {
+		this.balance = add ? this.balance + balance : this.balance - balance;
 	}
 
 }
