@@ -15,7 +15,7 @@ import lib.Seller;
 import lib.Wine;
 import lib.enums.Commands;
 
-public class Client {
+public class Tintolmarketskel {
 
 	private static String username;
 	private ObjectInputStream inStream;
@@ -23,7 +23,7 @@ public class Client {
 	private Socket socket;
 
 
-	public Client() {}
+	public Tintolmarketskel() {}
 
 	public void connect(String host, int tcpPort) throws UnknownHostException, IOException {
 		this.socket = new Socket(host, tcpPort);
@@ -59,7 +59,7 @@ public class Client {
 		outStream.writeObject(password);
 
 		Commands auth = (Commands) inStream.readObject();
-
+		sc.close();
 		return auth.equals(Commands.VALID_LOGIN) ? true : false;
 	}
 
@@ -103,7 +103,7 @@ public class Client {
 
 	}
 
-	public void buy (String wineID, Seller seller, int quantity) throws IOException, ClassNotFoundException {
+	public void buy (String wineID, String seller, int quantity) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.BUY);
 		outStream.writeObject(username);

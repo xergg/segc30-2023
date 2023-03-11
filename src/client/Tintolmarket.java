@@ -13,7 +13,7 @@ import static lib.Utils.*;
 public class Tintolmarket {
 
 	private static final String WRONG_NUMBER_OF_ARGUMENTS = "Wrong number of arguments";
-	private static final Client client = new Client();
+	private static final Tintolmarketskel client = new Tintolmarketskel();
 
 	public static void main(String[] args) {
 
@@ -58,7 +58,7 @@ public class Tintolmarket {
 			String command = null;
 			Scanner sc = new Scanner(System.in);
 			
-			Method [] methods = Client.class.getMethods();
+			Method [] methods = Tintolmarketskel.class.getMethods();
 			Map <String, Method> stubMethodsMap = new HashMap<>();
 			Arrays.stream( methods ).forEach( m -> stubMethodsMap.put( m.getName(), m));
 
