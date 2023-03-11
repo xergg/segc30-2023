@@ -1,5 +1,7 @@
 package client;
 
+import static lib.utils.Utils.*;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -8,7 +10,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 import lib.enums.Commands;
-import static lib.Utils.*;
 
 public class Tintolmarket {
 

@@ -28,20 +28,16 @@ public class ServerThread extends Thread {
 	public void run(){
 
 		try{
-
-			ObjectOutputStream outStream = new ObjectOutputStream(socket.getOutputStream());
-			ObjectInputStream inStream = new ObjectInputStream(socket.getInputStream());
-
 			// Criamos um skel do server para a thread com as streams definidas acima
-			TintolmarketServer_API serverSkel = new TintolmarketServer_API( inStream, outStream );
+			TintolmarketServer_API serverSkel = new TintolmarketServer_API(socket);
 
 			//AUTHENTICATION
-			String clientID = serverSkel.authentication(outStream, inStream);
+			String clientID = serverSkel.authentication();
 			if(clientID.isEmpty())	
 				System.out.println( "Client " + clientID + " login sucessful!" );
 
 			while(true) 
-				serverSkel.invoke(inStream, outStream, skelMethodsMap);
+				serverSkel.invoke(skelMethodsMap);
 
 		} catch(Exception e) {
 			e.getStackTrace();

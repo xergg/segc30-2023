@@ -17,7 +17,8 @@ public enum Commands {
 	QUIT(CommandType.FROM_CLIENT, "Quit"), 
 	SUCCESS(CommandType.FROM_SERVER, "Sucess"), 
 	BALANCE_NOT_ENOUGH(CommandType.FROM_SERVER, "Balance is not enough"), 
-	QUANTITY_NOT_ENOUGH(CommandType.FROM_SERVER, "Quantity is not enough");
+	QUANTITY_NOT_ENOUGH(CommandType.FROM_SERVER, "Quantity is not enough"), 
+	ERROR(CommandType.FROM_SERVER, "Error");
 
 	public enum CommandType {
 		FROM_CLIENT, // operacao pedida a partir do cliente

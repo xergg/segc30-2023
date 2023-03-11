@@ -145,11 +145,7 @@ public class Tintolmarketskel {
 	
 	public void talk (String user, String msg) throws IOException, ClassNotFoundException {
 
-		outStream.writeObject(Commands.WALLET);
-		outStream.writeObject(username);
-		outStream.writeObject(user);
-		outStream.writeObject(msg);
-		Commands message = (Commands) inStream.readObject();
+		//Dunno ainda
 		
 	}
 }
