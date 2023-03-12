@@ -18,6 +18,7 @@ import java.util.Map;
 
 import javax.security.auth.login.AccountNotFoundException;
 
+import exceptions.*;
 import lib.AccountHandler;
 import lib.Wine;
 import lib.WineHandler;
@@ -110,15 +111,30 @@ public class TintolmarketServer_API {
 		String userID = (String) inStream.readObject();
 		String wineID = (String) inStream.readObject();
 		String filename = (String) inStream.readObject();
+		boolean operationSuccessful = false;
 
 		try {
+			
 			AccountHandler.checkValid(userID);
+			
+			WineHandler.create(wineID, filename);
+			operationSuccessful = true;
+
+
 		} catch (AccountNotFoundException e) {
 			e.printStackTrace();
+		} catch (NullArgumentException e2){
+			e2.printStackTrace();
+		} catch (WineAlreadyExistsException e3) {
+			e3.printStackTrace();
 		}
-
-		WineHandler.create(wineID, filename);
-		outStream.writeObject(Commands.SUCCESS);
+		
+		if (operationSuccessful) {
+			outStream.writeObject(Commands.SUCCESS);
+		} 
+		else {
+			outStream.writeObject(Commands.ERROR);
+		}
 
 	}
 
@@ -136,7 +152,7 @@ public class TintolmarketServer_API {
 			e.printStackTrace();
 		}
 
-		WineHandler.add(wineID, value, quantity, userID);
+		WineHandler.newSale(wineID, value, quantity, userID);
 		outStream.writeObject(Commands.SUCCESS);
 
 	}
@@ -208,9 +224,26 @@ public class TintolmarketServer_API {
 
 		String wineID = (String) inStream.readObject();
 		int stars = (int) inStream.readObject();
+		boolean operationSuccessful = false;
 
-		WineHandler.classify(wineID, stars);
-		outStream.writeObject(Commands.SUCCESS);
+		try {
+
+			WineHandler.classify(wineID, stars);
+			
+			operationSuccessful = true;
+
+		} catch (WineNotFoundException e ){
+			e.printStackTrace();
+		} catch (NullArgumentException e1){
+			e1.printStackTrace();
+		}
+			
+		if(operationSuccessful){
+			outStream.writeObject(Commands.SUCCESS);
+		} else {
+			outStream.writeObject(Commands.ERROR);
+		}
+		
 
 	}
 
