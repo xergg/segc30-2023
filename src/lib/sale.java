@@ -1,12 +1,12 @@
 package lib;
 
-public class sale {
+public class Sale {
 
     private int quantity;
     private int value;
     private String sellerID;
 
-    public sale (String sellerID , int quantity , int value){
+    public Sale (String sellerID , int quantity , int value){
         this.sellerID = sellerID;
         this.quantity = quantity;
         this.value = value;

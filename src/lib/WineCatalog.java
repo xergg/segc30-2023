@@ -29,14 +29,6 @@ public class WineCatalog {
 		return wineList.get(wineID);
 	}
 
-	public static void classify(String wineID, int stars) {
-		
-		Wine wine = getWine(wineID);
-
-		wine.addRating(stars);
-
-	}
-
 	public static double getPrice(String wineID, String seller, int quantity) {
 		// TODO Auto-generated method stub
 		return 0;

@@ -35,4 +35,9 @@ public class Wine {
 	public void addRating(int rating){
 		ratings.add(rating);
 	}
+
+	public void createSale (int value, int quantity, String userID) {
+		Sale sale = new Sale(userID, quantity, value);
+		sales.add(sale);
+	}
 }

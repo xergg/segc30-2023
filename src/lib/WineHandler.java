@@ -23,12 +23,32 @@ public class WineHandler {
 
 	}
 
-	//TODO
-	public static void newSale(String wineID, int value, int quantity, String userID) {
-		WineCatalog.newSale(wineID, value, quantity, userID);
+	public static void newSale(String wineID, int value, int quantity, String userID) throws WineNotFoundException, NullArgumentException {
+
+		try {
+			Wine wine = getWine(wineID);
+
+			wine.createSale(value, quantity, userID);
+
+		} catch (WineNotFoundException e) {
+			
+			throw e;
+
+		} catch (NullArgumentException e1) {
+			
+			throw e1;
+			
+		}
+
+
 	}
 
-	public static Wine getWine(String wineID) {
+	public static Wine getWine(String wineID) throws NullArgumentException, WineNotFoundException {
+		if(wineID == null)
+			throw new NullArgumentException();
+		if(!wineExists(wineID))
+			throw new WineNotFoundException();
+		
 		return WineCatalog.getWine(wineID);
 	}
 
@@ -37,14 +57,16 @@ public class WineHandler {
 		return WineCatalog.getPrice(wineID, seller, quantity);
 	}
 
-	public static void classify(String wineID, int stars) throws WineNotFoundException {
+	public static void classify(String wineID, int stars) throws WineNotFoundException, NullArgumentException {
 		//criar funçao
 		if(wineID == null)
 			throw new NullArgumentException();
 		if(!wineExists(wineID))
 			throw new WineNotFoundException();
 		
-		WineCatalog.classify(wineID, stars);
+		Wine wine = WineCatalog.getWine(wineID);
+
+		wine.addRating(stars);
 	}
 
 	//TODO
