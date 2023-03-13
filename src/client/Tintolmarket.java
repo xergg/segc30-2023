@@ -18,9 +18,26 @@ public class Tintolmarket {
 
 	public static void main(String[] args) {
 
-		if(args.length < 2) {
+		String password = null ;
+		String username = args[1] ;
+
+		if(args.length == 2){
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Insert a password:");
+			password = sc.nextLine();
+			sc.close();
+		}
+		else if(args.length != 3) {
 			System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
 			System.out.println("Example: Tintolmarket <serverAddress> <userID> [password]\r\n");
+			System.exit(-1);
+		} 
+		else {
+			password = args[2];
+		}
+
+		if(username.matches(".*[\\\\/:*?\"<>|].*")){
+			System.err.println("\nInvalid username. Characters \"\\ / : * ? \" < > | \" not allowed");
 			System.exit(-1);
 		}
 
@@ -42,15 +59,14 @@ public class Tintolmarket {
 
 		try {
 
-			client.connect(host, tcpPort);
+			client.connect(username, host, tcpPort);
 			
 			System.out.println("Connected to server");
 
-			boolean validLogin = client.login(args);
+			boolean validLogin = client.login(username, password);
 			
 			if (validLogin) {
 				System.out.println("Login sucessful!");
-				System.out.println(menuToString());
 			} else {
 				System.err.println("Login failed!");
 				System.exit(-1);
@@ -64,6 +80,7 @@ public class Tintolmarket {
 			Arrays.stream( methods ).forEach( m -> stubMethodsMap.put( m.getName(), m));
 
 			while(!(command = sc.nextLine()).equals("quit")) {
+				System.out.println(menuToString());
 				System.out.println( "\nInsert command: " );
 				readCommand(command, stubMethodsMap);
 			}

@@ -10,7 +10,7 @@ import lib.enums.Commands;
 
 public class Tintolmarketskel {
 
-	private static String username;
+	private String username;
 	private ObjectInputStream inStream;
 	private ObjectOutputStream outStream;
 	private Socket socket;
@@ -18,10 +18,11 @@ public class Tintolmarketskel {
 
 	public Tintolmarketskel() {}
 
-	public void connect(String host, int tcpPort) throws UnknownHostException, IOException {
+	public void connect(String username, String host, int tcpPort) throws UnknownHostException, IOException {
 		this.socket = new Socket(host, tcpPort);
 		inStream = new ObjectInputStream(this.socket.getInputStream() );
 		outStream = new ObjectOutputStream(this.socket.getOutputStream() );
+		this.username = username;
 	}	
 
 	public void close() throws IOException {
@@ -30,29 +31,14 @@ public class Tintolmarketskel {
 		socket.close();
 	}
 
-	public boolean login(String[] args) throws IOException, ClassNotFoundException {
+	public boolean login(String username, String password) throws IOException, ClassNotFoundException {
 		//ClientID
-		username = args[1];	
-
-		if(username.matches(".*[\\\\/:*?\"<>|].*")){
-			System.err.println("\nInvalid username. Characters \"\\ / : * ? \" < > | \" not allowed");
-			System.exit(-1);
-		}
-
 		outStream.writeObject(username);
-		String password;
 
-		//Password
-		Scanner sc = new Scanner(System.in);
-		if(args.length < 4) {
-			System.out.println("Please insert Password: ");
-			password = sc.nextLine();
-		} else 
-			password = args[3];			
+		//Password		
 		outStream.writeObject(password);
 
 		Commands auth = (Commands) inStream.readObject();
-		sc.close();
 		
 		return auth.equals(Commands.VALID_LOGIN);
 	}
