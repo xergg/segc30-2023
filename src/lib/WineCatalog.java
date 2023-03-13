@@ -40,7 +40,7 @@ public class WineCatalog {
 		return 0;
 	}
 
-	public static void buyWime(String wineID, String seller, int quantity) {
+	public static void buyWine(String wineID, String seller, int quantity) {
 		// TODO Auto-generated method stub
 		
 	}

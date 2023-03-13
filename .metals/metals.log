@@ -1,0 +1,491 @@
+2023.03.11 22:57:42 INFO  Started: Metals version 0.11.11 in workspace 'D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023' for client Visual Studio Code 1.76.1.
+SLF4J: No SLF4J providers were found.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
+SLF4J: Class path contains SLF4J bindings targeting slf4j-api versions 1.7.x or earlier.
+SLF4J: Ignoring binding found at [jar:file:/C:/Users/Guilherme/AppData/Local/Coursier/cache/v1/https/repo1.maven.org/maven2/com/outr/scribe-slf4j_2.13/3.11.0/scribe-slf4j_2.13-3.11.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See https://www.slf4j.org/codes.html#ignoredBindings for an explanation.
+2023.03.11 22:57:43 INFO  time: initialize in 1.08s
+2023.03.11 22:57:47 WARN  Build server is not auto-connectable.
+2023.03.11 22:57:47 WARN  no build tool detected in workspace 'D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2023.03.11 22:57:47 WARN  no build target for: D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarket.java
+mar. 11, 2023 10:57:47 DA TARDE org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 4
+mar. 11, 2023 10:57:47 DA TARDE org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2
+2023.03.11 22:57:48 WARN  no build target for: D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java
+2023.03.11 22:57:49 WARN  Running javac-semanticdb failed for file:///D:/3ºano%20-%20LEI/2º%20semestre/SC2023/Projeto/segc30-2023/src/client/Tintolmarket.java. Output:
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarket.java:3: error: package lib.utils does not exist
+import static lib.utils.Utils.*;
+                       ^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarket.java:12: error: package lib.enums does not exist
+import lib.enums.Commands;
+                ^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarket.java:17: error: cannot find symbol
+	private static final Tintolmarketskel client = new Tintolmarketskel();
+	                     ^
+  symbol:   class Tintolmarketskel
+  location: class Tintolmarket
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarket.java:17: error: cannot find symbol
+	private static final Tintolmarketskel client = new Tintolmarketskel();
+	                                                   ^
+  symbol:   class Tintolmarketskel
+  location: class Tintolmarket
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarket.java:62: error: cannot find symbol
+			Method [] methods = Tintolmarketskel.class.getMethods();
+			                    ^
+  symbol:   class Tintolmarketskel
+  location: class Tintolmarket
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarket.java:88: error: cannot find symbol
+		Commands commandEnum = Commands.valueOfType(commandArray[0]);
+		^
+  symbol:   class Commands
+  location: class Tintolmarket
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarket.java:88: error: cannot find symbol
+		Commands commandEnum = Commands.valueOfType(commandArray[0]);
+		                       ^
+  symbol:   variable Commands
+  location: class Tintolmarket
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarket.java:1: error: semanticdb-javac: unknown flag '-'
+package client;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarket.java:1: error: semanticdb-javac: unknown flag 'LEI\2º'
+package client;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarket.java:1: error: semanticdb-javac: unknown flag 'semestre\SC2023\Projeto\segc30-2023\src\client'
+package client;
+^
+10 errors
+2023.03.11 22:57:51 WARN  Running javac-semanticdb failed for file:///D:/3ºano%20-%20LEI/2º%20semestre/SC2023/Projeto/segc30-2023/src/client/Tintolmarketskel.java. Output:
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:9: error: package lib.enums does not exist
+import lib.enums.Commands;
+                ^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:54: error: cannot find symbol
+		Commands auth = (Commands) inStream.readObject();
+		^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:54: error: cannot find symbol
+		Commands auth = (Commands) inStream.readObject();
+		                 ^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:57: error: cannot find symbol
+		return auth.equals(Commands.VALID_LOGIN);
+		                   ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:62: error: cannot find symbol
+		outStream.writeObject(Commands.ADD);
+		                      ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:67: error: cannot find symbol
+		Commands message = (Commands) inStream.readObject();
+		^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:67: error: cannot find symbol
+		Commands message = (Commands) inStream.readObject();
+		                    ^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:69: error: cannot find symbol
+		if ( message.equals( Commands.SUCCESS))
+		                     ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:77: error: cannot find symbol
+		outStream.writeObject(Commands.SELL);
+		                      ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:84: error: cannot find symbol
+		Commands message = (Commands) inStream.readObject();
+		^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:84: error: cannot find symbol
+		Commands message = (Commands) inStream.readObject();
+		                    ^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:86: error: cannot find symbol
+		if ( message.equals( Commands.SUCCESS))
+		                     ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:94: error: cannot find symbol
+		outStream.writeObject(Commands.VIEW);
+		                      ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:101: error: cannot find symbol
+		outStream.writeObject(Commands.BUY);
+		                      ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:107: error: cannot find symbol
+		Commands message = (Commands) inStream.readObject();
+		^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:107: error: cannot find symbol
+		Commands message = (Commands) inStream.readObject();
+		                    ^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:108: error: cannot find symbol
+		if ( message.equals( Commands.SUCCESS))
+		                     ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:110: error: cannot find symbol
+		else if (message.equals( Commands.BALANCE_NOT_ENOUGH))
+		                         ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:112: error: cannot find symbol
+		else if (message.equals(Commands.QUANTITY_NOT_ENOUGH))
+		                        ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:122: error: cannot find symbol
+		outStream.writeObject(Commands.WALLET);
+		                      ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:124: error: cannot find symbol
+		Commands message = (Commands) inStream.readObject();
+		^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:124: error: cannot find symbol
+		Commands message = (Commands) inStream.readObject();
+		                    ^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:132: error: cannot find symbol
+		outStream.writeObject(Commands.WALLET);
+		                      ^
+  symbol:   variable Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:135: error: cannot find symbol
+		Commands message = (Commands) inStream.readObject();
+		^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:135: error: cannot find symbol
+		Commands message = (Commands) inStream.readObject();
+		                    ^
+  symbol:   class Commands
+  location: class Tintolmarketskel
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:1: error: semanticdb-javac: unknown flag '-'
+package client;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:1: error: semanticdb-javac: unknown flag 'LEI\2º'
+package client;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\client\Tintolmarketskel.java:1: error: semanticdb-javac: unknown flag 'semestre\SC2023\Projeto\segc30-2023\src\client'
+package client;
+^
+28 errors
+2023.03.11 22:57:51 INFO  time: code lens generation in 3.73s
+2023.03.11 22:57:51 INFO  time: code lens generation in 1.3s
+2023.03.11 22:58:30 WARN  no build target for: D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\ServerThread.java
+2023.03.11 22:58:31 WARN  Running javac-semanticdb failed for file:///D:/3ºano%20-%20LEI/2º%20semestre/SC2023/Projeto/segc30-2023/src/server/ServerThread.java. Output:
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\ServerThread.java:19: error: cannot find symbol
+		Method [] methods = TintolmarketServer_API.class.getMethods();
+		                    ^
+  symbol:   class TintolmarketServer_API
+  location: class ServerThread
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\ServerThread.java:32: error: cannot find symbol
+			TintolmarketServer_API serverSkel = new TintolmarketServer_API(socket);
+			^
+  symbol:   class TintolmarketServer_API
+  location: class ServerThread
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\ServerThread.java:32: error: cannot find symbol
+			TintolmarketServer_API serverSkel = new TintolmarketServer_API(socket);
+			                                        ^
+  symbol:   class TintolmarketServer_API
+  location: class ServerThread
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\ServerThread.java:1: error: semanticdb-javac: unknown flag '-'
+package server;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\ServerThread.java:1: error: semanticdb-javac: unknown flag 'LEI\2º'
+package server;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\ServerThread.java:1: error: semanticdb-javac: unknown flag 'semestre\SC2023\Projeto\segc30-2023\src\server'
+package server;
+^
+6 errors
+2023.03.11 22:58:38 WARN  no build target for: D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java
+2023.03.11 22:58:39 WARN  no build target for: D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer.java
+2023.03.11 22:58:40 WARN  Running javac-semanticdb failed for file:///D:/3ºano%20-%20LEI/2º%20semestre/SC2023/Projeto/segc30-2023/src/server/TintolmarketServer_API.java. Output:
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:3: error: package lib.utils does not exist
+import static lib.utils.Utils.invokeMethod;
+                       ^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:3: error: static import only from classes and interfaces
+import static lib.utils.Utils.invokeMethod;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:21: error: package lib does not exist
+import lib.AccountHandler;
+          ^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:22: error: package lib does not exist
+import lib.Wine;
+          ^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:23: error: package lib does not exist
+import lib.WineHandler;
+          ^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:24: error: package lib.enums does not exist
+import lib.enums.Commands;
+                ^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:50: error: cannot find symbol
+		Commands ct = clientAccess? Commands.VALID_LOGIN : Commands.INVALID_LOGIN;
+		^
+  symbol:   class Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:50: error: cannot find symbol
+		Commands ct = clientAccess? Commands.VALID_LOGIN : Commands.INVALID_LOGIN;
+		                            ^
+  symbol:   variable Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:50: error: cannot find symbol
+		Commands ct = clientAccess? Commands.VALID_LOGIN : Commands.INVALID_LOGIN;
+		                                                   ^
+  symbol:   variable Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:92: error: cannot find symbol
+			AccountHandler.addAccount(clientID);
+			^
+  symbol:   variable AccountHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:99: error: cannot find symbol
+		Commands command = (Commands) inStream.readObject();
+		^
+  symbol:   class Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:99: error: cannot find symbol
+		Commands command = (Commands) inStream.readObject();
+		                    ^
+  symbol:   class Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:101: error: cannot find symbol
+		if(command.equals(Commands.QUIT)) {
+		                  ^
+  symbol:   variable Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:115: error: cannot find symbol
+			AccountHandler.checkValid(userID);
+			^
+  symbol:   variable AccountHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:120: error: cannot find symbol
+		WineHandler.create(wineID, filename);
+		^
+  symbol:   variable WineHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:121: error: cannot find symbol
+		outStream.writeObject(Commands.SUCCESS);
+		                      ^
+  symbol:   variable Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:133: error: cannot find symbol
+			AccountHandler.checkValid(userID);
+			^
+  symbol:   variable AccountHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:139: error: cannot find symbol
+		WineHandler.add(wineID, value, quantity, userID);
+		^
+  symbol:   variable WineHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:140: error: cannot find symbol
+		outStream.writeObject(Commands.SUCCESS);
+		                      ^
+  symbol:   variable Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:147: error: cannot find symbol
+		Wine wine = WineHandler.getWine(wineID);
+		^
+  symbol:   class Wine
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:147: error: cannot find symbol
+		Wine wine = WineHandler.getWine(wineID);
+		            ^
+  symbol:   variable WineHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:161: error: cannot find symbol
+			AccountHandler.checkValid(userID);
+			^
+  symbol:   variable AccountHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:168: error: cannot find symbol
+		double cash = WineHandler.getPrice(wineID, seller, quantity);
+		              ^
+  symbol:   variable WineHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:170: error: cannot find symbol
+			outStream.writeObject(Commands.ERROR);
+			                      ^
+  symbol:   variable Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:175: error: cannot find symbol
+			outStream.writeObject(Commands.QUANTITY_NOT_ENOUGH);
+			                      ^
+  symbol:   variable Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:179: error: cannot find symbol
+		if (!AccountHandler.hasEnoughMoney(userID, cash)) {
+		     ^
+  symbol:   variable AccountHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:180: error: cannot find symbol
+			outStream.writeObject(Commands.BALANCE_NOT_ENOUGH);
+			                      ^
+  symbol:   variable Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:184: error: cannot find symbol
+		WineHandler.buyWine(wineID, seller, quantity);
+		^
+  symbol:   variable WineHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:185: error: cannot find symbol
+		AccountHandler.buy(userID, seller, cash);
+		^
+  symbol:   variable AccountHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:186: error: cannot find symbol
+		outStream.writeObject(Commands.SUCCESS);
+		                      ^
+  symbol:   variable Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:195: error: cannot find symbol
+			AccountHandler.checkValid(userID);
+			^
+  symbol:   variable AccountHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:200: error: cannot find symbol
+		double balance = AccountHandler.getBalance(userID);
+		                 ^
+  symbol:   variable AccountHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:212: error: cannot find symbol
+		WineHandler.classify(wineID, stars);
+		^
+  symbol:   variable WineHandler
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:213: error: cannot find symbol
+		outStream.writeObject(Commands.SUCCESS);
+		                      ^
+  symbol:   variable Commands
+  location: class TintolmarketServer_API
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:1: error: semanticdb-javac: unknown flag '-'
+package server;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:1: error: semanticdb-javac: unknown flag 'LEI\2º'
+package server;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java:1: error: semanticdb-javac: unknown flag 'semestre\SC2023\Projeto\segc30-2023\src\server'
+package server;
+^
+37 errors
+2023.03.11 22:58:41 WARN  Running javac-semanticdb failed for file:///D:/3ºano%20-%20LEI/2º%20semestre/SC2023/Projeto/segc30-2023/src/server/TintolmarketServer.java. Output:
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer.java:36: error: cannot find symbol
+				new ServerThread(serverSocket.accept()).start();
+				    ^
+  symbol:   class ServerThread
+  location: class TintolmarketServer
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer.java:1: error: semanticdb-javac: unknown flag '-'
+package server;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer.java:1: error: semanticdb-javac: unknown flag 'LEI\2º'
+package server;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer.java:1: error: semanticdb-javac: unknown flag 'semestre\SC2023\Projeto\segc30-2023\src\server'
+package server;
+^
+4 errors
+2023.03.11 22:58:47 WARN  no build target for: D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\server\TintolmarketServer_API.java
+2023.03.11 22:59:10 WARN  no build target for: D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java
+2023.03.11 22:59:11 WARN  Running javac-semanticdb failed for file:///D:/3ºano%20-%20LEI/2º%20semestre/SC2023/Projeto/segc30-2023/src/lib/WineHandler.java. Output:
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java:15: error: cannot find symbol
+	public static Wine getWine(String wineID) {
+	              ^
+  symbol:   class Wine
+  location: class WineHandler
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java:8: error: cannot find symbol
+			WineCatalog.create(new Wine(wineID, filename));
+			                       ^
+  symbol:   class Wine
+  location: class WineHandler
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java:8: error: cannot find symbol
+			WineCatalog.create(new Wine(wineID, filename));
+			^
+  symbol:   variable WineCatalog
+  location: class WineHandler
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java:12: error: cannot find symbol
+		WineCatalog.add(wineID, value, quantity, userID);
+		^
+  symbol:   variable WineCatalog
+  location: class WineHandler
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java:16: error: cannot find symbol
+		return WineCatalog.getWine(wineID);
+		       ^
+  symbol:   variable WineCatalog
+  location: class WineHandler
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java:20: error: cannot find symbol
+		return WineCatalog.getPrice(wineID, seller, quantity);
+		       ^
+  symbol:   variable WineCatalog
+  location: class WineHandler
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java:24: error: cannot find symbol
+		WineCatalog.classify(wineID, stars);
+		^
+  symbol:   variable WineCatalog
+  location: class WineHandler
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java:28: error: cannot find symbol
+		WineCatalog.buyWime(wineID, seller, quantity);		
+		^
+  symbol:   variable WineCatalog
+  location: class WineHandler
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java:1: error: semanticdb-javac: unknown flag '-'
+package lib;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java:1: error: semanticdb-javac: unknown flag 'LEI\2º'
+package lib;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineHandler.java:1: error: semanticdb-javac: unknown flag 'semestre\SC2023\Projeto\segc30-2023\src\lib'
+package lib;
+^
+11 errors
+2023.03.11 22:59:27 WARN  no build target for: D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineCatalog.java
+2023.03.11 22:59:28 WARN  Running javac-semanticdb failed for file:///D:/3ºano%20-%20LEI/2º%20semestre/SC2023/Projeto/segc30-2023/src/lib/WineCatalog.java. Output:
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineCatalog.java:9: error: cannot find symbol
+    private static Map<String, Wine> wineList = new HashMap<>();
+                               ^
+  symbol:   class Wine
+  location: class WineCatalog
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineCatalog.java:17: error: cannot find symbol
+	public static void create(Wine wine) {
+	                          ^
+  symbol:   class Wine
+  location: class WineCatalog
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineCatalog.java:28: error: cannot find symbol
+	public static Wine getWine(String wineID) {
+	              ^
+  symbol:   class Wine
+  location: class WineCatalog
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineCatalog.java:1: error: semanticdb-javac: unknown flag '-'
+package lib;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineCatalog.java:1: error: semanticdb-javac: unknown flag 'LEI\2º'
+package lib;
+^
+D:\3ºano - LEI\2º semestre\SC2023\Projeto\segc30-2023\src\lib\WineCatalog.java:1: error: semanticdb-javac: unknown flag 'semestre\SC2023\Projeto\segc30-2023\src\lib'
+package lib;
+^
+6 errors
+2023.03.11 22:59:30 INFO  Shutting down server
+2023.03.11 22:59:30 INFO  shutting down Metals
+2023.03.11 22:59:30 INFO  Exiting server

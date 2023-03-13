@@ -36,4 +36,15 @@ public class AccountHandler {
 		AccountCatalog.getAccountByClientID(seller).get().setBalance(cash, true);
 	}
 
+	public static void talk(String clientID, String message){
+
+		AccountCatalog.getAccountByClientID(clientID).get().receiveMessage(message);
+
+	}
+
+	public static void read(String clientID){
+
+		AccountCatalog.getAccountByClientID(clientID).get().readMessages();
+
+	}
 }

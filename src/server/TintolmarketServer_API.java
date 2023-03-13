@@ -214,9 +214,43 @@ public class TintolmarketServer_API {
 
 	}
 
-	public void talk (String user, String msg) throws IOException, ClassNotFoundException {
+	public void talk () throws IOException, ClassNotFoundException {
 
-		//DUNNO ainda
+		//verificar primeiro se os users sao validos
+		String userID = (String) inStream.readObject();
+		String user = (String) inStream.readObject(); //o user a que vai ser enviado
+		
+		try{
+			AccountHandler.checkValid(userID);
+			AccountHandler.checkValid(user);
+
+		} catch (AccountNotFoundException e){
+			e.printStackTrace();
+		}
+
+		
+		String msg = (String) inStream.readObject();
+		AccountHandler.talk(user, userID + ":" + msg);
+		outStream.writeObject(Commands.MESSAGE_SENT);	
+
+	}
+
+	public void read () throws IOException, ClassNotFoundException{
+
+		//verificar primeiro se os users sao validos
+		String userID = (String) inStream.readObject();
+		
+		
+		try{
+			AccountHandler.checkValid(userID);
+			
+
+		} catch (AccountNotFoundException e){
+			e.printStackTrace();
+		}
+
+		AccountHandler.read(userID);
+		outStream.writeObject(Commands.SUCCESS);
 
 	}
 }

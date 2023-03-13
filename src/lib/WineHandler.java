@@ -25,7 +25,7 @@ public class WineHandler {
 	}
 
 	public static void buyWine(String wineID, String seller, int quantity) {
-		WineCatalog.buyWime(wineID, seller, quantity);		
+		WineCatalog.buyWine(wineID, seller, quantity);		
 	}
 
 }
