@@ -1,7 +1,5 @@
 package lib;
 
-import java.util.Optional;
-
 import exceptions.NullArgumentException;
 import exceptions.WineAlreadyExistsException;
 import exceptions.WineNotFoundException;

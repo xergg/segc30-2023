@@ -168,11 +168,19 @@ public class TintolmarketServer_API {
 
 	public void view () throws IOException, ClassNotFoundException {
 
+		boolean operationSuccessful = false;
+
 		String wineID = (String) inStream.readObject();
+
 		try {
 
 			Wine wine = WineHandler.getWine(wineID);
+			
+			outStream.writeObject(Commands.SUCCESS);
+			
 			outStream.writeObject(wine);
+
+			operationSuccessful = true;
 			
 		} catch (WineNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -181,6 +189,9 @@ public class TintolmarketServer_API {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		if(!operationSuccessful)
+			outStream.writeObject(Commands.ERROR);
 		
 		
 

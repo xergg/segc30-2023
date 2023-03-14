@@ -8,7 +8,7 @@ public class Wine {
 
 	private String wineID;
 	private List<Integer> ratings = new ArrayList<Integer>();
-	private List<sale> sales = new ArrayList<sale>(); 
+	private List<Sale> sales = new ArrayList<Sale>(); 
 	private String filename;
 	//private List <String seller , int quantity, int value> sale =  
 
@@ -21,6 +21,11 @@ public class Wine {
 	
 	public String getName() {
 		return wineID;
+	}
+
+
+	public String getImage(){
+		return filename;
 	}
 
 	public OptionalDouble getRating() {
@@ -39,5 +44,14 @@ public class Wine {
 	public void createSale (int value, int quantity, String userID) {
 		Sale sale = new Sale(userID, quantity, value);
 		sales.add(sale);
+	}
+
+	public String viewSales(){
+		StringBuilder str = new StringBuilder();
+		for (Sale sale : sales){
+			str.append(sale.toString() + "\n");
+		}
+
+		return str.toString();
 	}
 }

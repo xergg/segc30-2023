@@ -32,4 +32,8 @@ public class Sale {
         return sellerID;
     }
 
+    public String toString() {
+        return "Seller: " + sellerID + " | Quantity: " + quantity + " | Value: " + value;
+    }
+
 }

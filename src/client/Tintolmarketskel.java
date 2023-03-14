@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+
+import lib.Wine;
 import lib.enums.Commands;
 
 public class Tintolmarketskel {
@@ -78,7 +80,25 @@ public class Tintolmarketskel {
 	public void view (String wineID) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.VIEW);
+
 		outStream.writeObject(wineID);
+
+		Commands message = (Commands) inStream.readObject();
+
+		if (message.equals(Commands.ERROR)){
+			//falta receber mensagem de erro
+			System.out.println("Wine not Found");
+		}
+		 
+		else {
+			Wine wine = (Wine)inStream.readObject();
+			
+
+			System.out.println("Vinho:" + wine.getName() + "\n" + "imagem:" + wine.getImage() +"\n" + "Classificacao:" + wine.getRating() + "\n" +
+			"Vendas: " + wine.viewSales());
+
+		}
+
 
 	}
 
