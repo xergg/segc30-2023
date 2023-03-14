@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
-
 import lib.Wine;
 import lib.enums.Commands;
 
@@ -128,6 +127,16 @@ public class Tintolmarketskel {
 		outStream.writeObject(Commands.WALLET);
 		outStream.writeObject(username);
 		Commands message = (Commands) inStream.readObject();
+
+		if(message.equals(Commands.ERROR)){
+			//falta receber mensagem de erro
+			System.out.println("There was an error checking your wallet.");
+		
+		} else {
+			String balance = (String) inStream.readObject();
+			System.out.println("The balance in your wallet is: " + balance);
+
+		}
 		
 	}
 	
@@ -135,16 +144,64 @@ public class Tintolmarketskel {
 
 	public void classify (String wineID, int stars) throws IOException, ClassNotFoundException {
 
-		outStream.writeObject(Commands.WALLET);
+		outStream.writeObject(Commands.CLASSIFY);
 		outStream.writeObject(wineID);
 		outStream.writeObject(stars);
 		Commands message = (Commands) inStream.readObject();
+
+		if(message.equals(Commands.ERROR)){
+			//falta receber mensagem de erro
+			System.out.println("There was an error classifying the wine.");
+
+
+		} else {
+
+			System.out.println("The wine " + wineID + " has been successfully classified with " + stars + " stars!");
+
+		}
+
 		
 	}
 	
 	public void talk (String user, String msg) throws IOException, ClassNotFoundException {
 
-		//Dunno ainda
+		outStream.writeObject(Commands.TALK);
+		outStream.writeObject(user);
+		outStream.writeObject(msg);
 		
+		Commands message = (Commands) inStream.readObject();
+
+		if(message.equals(Commands.ERROR)){
+			System.out.println("There was an issue starting a conversation with the user.");
+		}
+
+		else {
+
+			String messageSent = (String) inStream.readObject();
+			System.out.println(messageSent);
+
+		}
 	}
+
+	public void read () throws IOException, ClassNotFoundException{
+	
+		outStream.writeObject(Commands.READ);
+		outStream.writeObject(username);
+
+		Commands message = (Commands) inStream.readObject();
+
+		if(message.equals(Commands.ERROR)){
+			System.out.println("There was an error retrieving your messages.");
+		}
+
+		else {
+
+			String messagesToRead = (String) inStream.readObject();
+			System.out.println(messagesToRead);
+
+		}
+	
+	}
+
+
 }
