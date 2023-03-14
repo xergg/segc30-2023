@@ -42,9 +42,9 @@ public class AccountHandler {
 
 	}
 
-	public static void read(String clientID){
+	public static String read(String clientID){
 
-		AccountCatalog.getAccountByClientID(clientID).get().readMessages();
+		return AccountCatalog.getAccountByClientID(clientID).get().readMessages();
 
 	}
 }

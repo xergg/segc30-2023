@@ -289,14 +289,13 @@ public class TintolmarketServer_API {
 			AccountHandler.checkValid(userID);
 			AccountHandler.checkValid(user);
 
+			String msg = (String) inStream.readObject();
+			AccountHandler.talk(user, userID + ":" + msg);
+			outStream.writeObject(Commands.MESSAGE_SENT);	
+
 		} catch (AccountNotFoundException e){
 			e.printStackTrace();
 		}
-
-		
-		String msg = (String) inStream.readObject();
-		AccountHandler.talk(user, userID + ":" + msg);
-		outStream.writeObject(Commands.MESSAGE_SENT);	
 
 	}
 
@@ -308,14 +307,16 @@ public class TintolmarketServer_API {
 		
 		try{
 			AccountHandler.checkValid(userID);
-			
+
+			String messages = AccountHandler.read(userID);
+
+			outStream.writeObject(messages);
+
+			outStream.writeObject(Commands.SUCCESS);
 
 		} catch (AccountNotFoundException e){
 			e.printStackTrace();
 		}
-
-		AccountHandler.read(userID);
-		outStream.writeObject(Commands.SUCCESS);
 
 	}
 }

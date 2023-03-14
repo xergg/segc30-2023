@@ -27,11 +27,14 @@ public class Account {
 		return messageList;
 	}
 
-	public void readMessages(){
+	public String readMessages(){
+		StringBuilder str = new StringBuilder();
 		for(String message : messageList){
-			System.out.println(message + "\n");
+			str.append(message + "\n");
 			messageList.remove(message);
 		}
+
+		return str.toString();
 	}
 
 	public void receiveMessage(String message) {
