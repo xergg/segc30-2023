@@ -94,11 +94,9 @@ public class Tintolmarketskel {
 			
 
 			System.out.println("Vinho:" + wine.getName() + "\n" + "imagem:" + wine.getImage() +"\n" + "Classificacao:" + wine.getRating() + "\n" +
-			"Vendas: " + wine.viewSales());
+			"Vendas: " + wine.getQuantity());
 
 		}
-
-
 	}
 
 	public void buy (String wineID, String seller, int quantity) throws IOException, ClassNotFoundException {

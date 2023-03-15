@@ -26,4 +26,12 @@ public class AccountCatalog
         return Optional.ofNullable( accountsByClientID.get( userID ) );
     }
 
+	public static boolean hasEnoughMoney(String clientID, double cash) {
+		return accountsByClientID.get(clientID).getBalance() - cash  > 0;
+	}
+
+	public static void transfer(String userID, String seller, double value) {
+		AccountCatalog.getAccountByClientID(userID).get().setBalance(value, false);
+		AccountCatalog.getAccountByClientID(seller).get().setBalance(value, true);
+	}
 }

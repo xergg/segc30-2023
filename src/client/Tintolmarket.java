@@ -8,13 +8,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
 import lib.enums.Commands;
 
 public class Tintolmarket {
 
 	private static final String WRONG_NUMBER_OF_ARGUMENTS = "Wrong number of arguments";
 	private static final Tintolmarketskel client = new Tintolmarketskel();
+	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
 
@@ -22,19 +22,17 @@ public class Tintolmarket {
 		String username = args[1] ;
 
 		if(args.length == 2){
-			Scanner sc = new Scanner(System.in);
 			System.out.println("Insert a password:");
 			password = sc.nextLine();
-			sc.close();
 		}
 		else if(args.length != 3) {
 			System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
 			System.out.println("Example: Tintolmarket <serverAddress> <userID> [password]\r\n");
 			System.exit(-1);
 		} 
-		else {
+		else 
 			password = args[2];
-		}
+		
 
 		if(username.matches(".*[\\\\/:*?\"<>|].*")){
 			System.err.println("\nInvalid username. Characters \"\\ / : * ? \" < > | \" not allowed");
@@ -60,9 +58,7 @@ public class Tintolmarket {
 		try {
 
 			client.connect(username, host, tcpPort);
-			
 			System.out.println("Connected to server");
-
 			boolean validLogin = client.login(username, password);
 			
 			if (validLogin) {
@@ -72,25 +68,20 @@ public class Tintolmarket {
 				System.exit(-1);
 			}
 			
-			String command = null;
-			Scanner sc = new Scanner(System.in);
+			String command = "";
 			
 			Method [] methods = Tintolmarketskel.class.getMethods();
 			Map <String, Method> stubMethodsMap = new HashMap<>();
 			Arrays.stream( methods ).forEach( m -> stubMethodsMap.put( m.getName(), m));
 
-			while(!(command = sc.nextLine()).equals("quit")) {
+			while(!(command.equals("quit"))) {
 				System.out.println(menuToString());
-				System.out.println( "\nInsert command: " );
+				System.out.printf( "\nInsert command: " );
+				command = sc.nextLine();
 				readCommand(command, stubMethodsMap);
 			}
-
+			System.out.print("Client ended connection");
 			sc.close();
-
-			
-			
-			System.out.println("Connected to server");
-
 		} catch(IOException e) {
 			System.err.println("Error communicating with server");
 		} catch (ClassNotFoundException e) {
@@ -100,7 +91,10 @@ public class Tintolmarket {
 
 
 	private static void readCommand(String command, Map<String, Method> stubMethodsMap) {
-
+		
+		if(command.equals("quit"))
+			return;
+		
 		String[] commandArray = command.split(" ", 3);
 		Commands commandEnum = Commands.valueOfType(commandArray[0]);
 
@@ -121,7 +115,7 @@ public class Tintolmarket {
 				"- wallet \n" + 
 				"- classify <wine> <stars>  \n" + 
 				"- talk <user> <message> \n" + 
-				"- read - \n" +
+				"- read \n" +
 				"- quit\n";
 	}
 }

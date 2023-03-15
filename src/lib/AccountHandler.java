@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import javax.security.auth.login.AccountNotFoundException;
 
+import lib.enums.Commands;
+
 public class AccountHandler {
 
     private AccountHandler() { }
@@ -23,17 +25,8 @@ public class AccountHandler {
 		}
 	}
 
-	public static boolean hasEnoughMoney(String clientID, double cash) {
-		return AccountCatalog.getAccountByClientID(clientID).get().getBalance() - cash  > 0;
-	}
-
 	public static double getBalance(String clientID) {
 		return AccountCatalog.getAccountByClientID(clientID).get().getBalance();
-	}
-
-	public static void buy(String clientID, String seller, double cash) {
-		AccountCatalog.getAccountByClientID(clientID).get().setBalance(cash, false);
-		AccountCatalog.getAccountByClientID(seller).get().setBalance(cash, true);
 	}
 
 	public static void talk(String clientID, String message){

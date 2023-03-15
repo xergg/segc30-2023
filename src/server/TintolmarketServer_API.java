@@ -20,6 +20,7 @@ import javax.security.auth.login.AccountNotFoundException;
 
 import exceptions.*;
 import lib.AccountHandler;
+import lib.SaleHandler;
 import lib.Wine;
 import lib.WineHandler;
 import lib.enums.Commands;
@@ -114,12 +115,10 @@ public class TintolmarketServer_API {
 		boolean operationSuccessful = false;
 
 		try {
-			
-			AccountHandler.checkValid(userID);
-			
-			WineHandler.create(wineID, filename);
-			operationSuccessful = true;
 
+			AccountHandler.checkValid(userID);
+			WineHandler.create(userID, wineID, filename);
+			operationSuccessful = true;
 
 		} catch (AccountNotFoundException e) {
 			e.printStackTrace();
@@ -128,7 +127,7 @@ public class TintolmarketServer_API {
 		} catch (WineAlreadyExistsException e3) {
 			e3.printStackTrace();
 		}
-		
+
 		if (operationSuccessful) {
 			outStream.writeObject(Commands.SUCCESS);
 		} 
@@ -146,15 +145,11 @@ public class TintolmarketServer_API {
 		int quantity = (int) inStream.readObject();
 
 		try {
-			
-			AccountHandler.checkValid(userID);
 
-			WineHandler.newSale(wineID, value, quantity, userID);
+			AccountHandler.checkValid(userID);
+			WineHandler.newSale(wineID, value, userID, quantity);
 
 		} catch (AccountNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (WineNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NullArgumentException e) {
@@ -175,13 +170,13 @@ public class TintolmarketServer_API {
 		try {
 
 			Wine wine = WineHandler.getWine(wineID);
-			
+
 			outStream.writeObject(Commands.SUCCESS);
-			
+
 			outStream.writeObject(wine);
 
 			operationSuccessful = true;
-			
+
 		} catch (WineNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,8 +187,6 @@ public class TintolmarketServer_API {
 
 		if(!operationSuccessful)
 			outStream.writeObject(Commands.ERROR);
-		
-		
 
 	}
 
@@ -206,33 +199,29 @@ public class TintolmarketServer_API {
 
 
 		try {
+			
 			AccountHandler.checkValid(userID);
+			AccountHandler.checkValid(seller);
+			SaleHandler.buy(userID, seller, wineID, quantity);
+			
 		} catch (AccountNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-
-
-		double cash = WineHandler.getPrice(wineID, seller, quantity);
-		if(cash == -1) {
+		} catch (WineNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			outStream.writeObject(Commands.ERROR);
-			return;
-		}
-
-		if(cash == 0) {
+		} catch (NullArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotEnoughQuantitiesException e) {
+			e.printStackTrace();
 			outStream.writeObject(Commands.QUANTITY_NOT_ENOUGH);
-			return;
-		}
-
-		if (!AccountHandler.hasEnoughMoney(userID, cash)) {
+		} catch (NotEnoughMoneyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			outStream.writeObject(Commands.BALANCE_NOT_ENOUGH);
-			return;
-		}
-
-		WineHandler.buyWine(wineID, seller, quantity);
-		AccountHandler.buy(userID, seller, cash);
-		outStream.writeObject(Commands.SUCCESS);
-
+		}		
 	}
 
 
@@ -261,7 +250,7 @@ public class TintolmarketServer_API {
 		try {
 
 			WineHandler.classify(wineID, stars);
-			
+
 			operationSuccessful = true;
 
 		} catch (WineNotFoundException e ){
@@ -269,13 +258,13 @@ public class TintolmarketServer_API {
 		} catch (NullArgumentException e1){
 			e1.printStackTrace();
 		}
-			
+
 		if(operationSuccessful){
 			outStream.writeObject(Commands.SUCCESS);
 		} else {
 			outStream.writeObject(Commands.ERROR);
 		}
-		
+
 
 	}
 
@@ -284,7 +273,7 @@ public class TintolmarketServer_API {
 		//verificar primeiro se os users sao validos
 		String userID = (String) inStream.readObject();
 		String user = (String) inStream.readObject(); //o user a que vai ser enviado
-		
+
 		try{
 			AccountHandler.checkValid(userID);
 			AccountHandler.checkValid(user);
@@ -303,8 +292,8 @@ public class TintolmarketServer_API {
 
 		//verificar primeiro se os users sao validos
 		String userID = (String) inStream.readObject();
-		
-		
+
+
 		try{
 			AccountHandler.checkValid(userID);
 

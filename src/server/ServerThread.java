@@ -1,8 +1,6 @@
 package server;
 
-import java.io.ObjectInputStream;
 import java.lang.reflect.Method;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,8 +31,8 @@ public class ServerThread extends Thread {
 
 			//AUTHENTICATION
 			String clientID = serverSkel.authentication();
-			if(clientID.isEmpty())	
-				System.out.println( "Client " + clientID + " login sucessful!" );
+			if(!clientID.equals(""))	
+				System.out.println("Client " + clientID + " login sucessful!" );
 
 			while(true) 
 				serverSkel.invoke(skelMethodsMap);

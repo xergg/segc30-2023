@@ -8,21 +8,21 @@ public class Wine {
 
 	private String wineID;
 	private List<Integer> ratings = new ArrayList<Integer>();
-	private List<Sale> sales = new ArrayList<Sale>(); 
 	private String filename;
-	//private List <String seller , int quantity, int value> sale =  
-
+	private double price;
+	private int quantity; 
+	
 	public Wine(String wineID, String filename) {
 		
 		this.wineID = wineID;
 		this.filename = filename;
+		this.price = 0;
+		this.quantity = 0;
+	}
 
-	}	
-	
 	public String getName() {
 		return wineID;
 	}
-
 
 	public String getImage(){
 		return filename;
@@ -41,17 +41,16 @@ public class Wine {
 		ratings.add(rating);
 	}
 
-	public void createSale (int value, int quantity, String userID) {
-		Sale sale = new Sale(userID, quantity, value);
-		sales.add(sale);
+	public double getPrice() {
+		return price;
 	}
 
-	public String viewSales(){
-		StringBuilder str = new StringBuilder();
-		for (Sale sale : sales){
-			str.append(sale.toString() + "\n");
-		}
-
-		return str.toString();
+	public void addStock(int quantity, int value) {	
+		this.quantity += quantity;
+		this.price = value;
+	}
+	
+	public int getQuantity() {
+		return this.quantity;
 	}
 }
