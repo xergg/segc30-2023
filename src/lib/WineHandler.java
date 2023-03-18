@@ -3,7 +3,6 @@ package lib;
 import exceptions.NullArgumentException;
 import exceptions.WineAlreadyExistsException;
 import exceptions.WineNotFoundException;
-import exceptions.WineDoesNotExistException;
 
 public class WineHandler {
 
@@ -19,12 +18,6 @@ public class WineHandler {
 		WineCatalog.create(wine);
 	}
 
-	public static Wine getWine(String wineID, String userID) throws NullArgumentException, WineNotFoundException {
-
-		return WineCatalog.getWine(wineID, userID);
-	}
-
-
 	public static Wine getWine(String wineID) throws WineNotFoundException, NullArgumentException {
 		
 		return WineCatalog.getWine(wineID);
@@ -35,12 +28,5 @@ public class WineHandler {
 	
 		Wine wine = WineCatalog.getWine(wineID);
 		wine.addRating(stars);
-	}
-
-	public static void newSale(String wineID, int value, String userID, int quantity) throws WineDoesNotExistException, NullArgumentException, WineNotFoundException {
-		if(!WineCatalog.exists(wineID))
-			throw new WineDoesNotExistException();
-		
-		WineCatalog.addStock(wineID, value, userID, quantity);
 	}
 }

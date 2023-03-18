@@ -94,12 +94,11 @@ public class Tintolmarket {
 		
 		if(command.equals("quit"))
 			return;
-		
 		String[] commandArray = command.split(" ", 3);
 		Commands commandEnum = Commands.valueOfType(commandArray[0]);
 
 		try {
-			invokeMethod(client, stubMethodsMap, commandEnum, commandArray, true );			
+			invokeMethod(client, stubMethodsMap, commandEnum, commandArray, true);			
 		} catch (Exception e){
 			System.out.println(e.getMessage());
 		}

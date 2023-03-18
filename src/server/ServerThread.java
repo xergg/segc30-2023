@@ -31,9 +31,9 @@ public class ServerThread extends Thread {
 
 			//AUTHENTICATION
 			String clientID = serverSkel.authentication();
-			if(!clientID.equals(""))	
+			if(!clientID.equals("")) 
 				System.out.println("Client " + clientID + " login sucessful!" );
-
+			
 			while(true) 
 				serverSkel.invoke(skelMethodsMap);
 

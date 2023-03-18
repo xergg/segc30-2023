@@ -10,7 +10,6 @@ public class WineCatalog {
 
     private static final WineCatalog INSTANCE = new WineCatalog();
     private static Map <String, Wine> wineList = new HashMap<>();
-    private static Map <String, Map<String, Wine>> sellersList = new HashMap<>();
     
     private WineCatalog() {}
     
@@ -30,34 +29,25 @@ public class WineCatalog {
 
 		return wineList.get(wineID);
 	}
-	
-
-	public static Wine getWine(String wineID, String userID) throws NullArgumentException, WineNotFoundException {
-		
-		if(wineID == null)
-			throw new NullArgumentException();
-		if(!wineList.containsKey(wineID))
-			throw new WineNotFoundException();
-
-		return sellersList.get(userID).get(wineID);
-	}
-
-
-	public static void addStock(String wineID, int value, String userID, int quantity) throws NullArgumentException, WineNotFoundException {
-		Wine wine = getWine(wineID);
-		
-		if(sellersList.containsKey(userID))
-			sellersList.get(userID).get(wine.getName()).addStock(quantity, value);
-		else {
-			Map <String, Wine> newWine = new HashMap <>();
-			newWine.put(wine.getName(), wine);
-			sellersList.put(userID, newWine);
-			wine.addStock(quantity, value);
-		}
-	}
 
 	public static boolean exists(String wineID) {
 		return wineList.get(wineID) != null;
+	}
+
+	public static Sale getSale(String wineID, String seller) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static void addStock(String wineID, int value, String userID, int quantity) {
+		
+		Sale sale = new Sale(userID, quantity, value);
+		Wine wine = wineList.get(wineID);
+		
+		if(wine.containsSale(sale))
+			wine.setStock(quantity, value, userID);
+		else
+			wine.addSale(sale);
 	}
 
 }

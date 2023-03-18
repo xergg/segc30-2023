@@ -41,7 +41,6 @@ public class Tintolmarketskel {
 		outStream.writeObject(password);
 
 		Commands auth = (Commands) inStream.readObject();
-		
 		return auth.equals(Commands.VALID_LOGIN);
 	}
 
@@ -55,7 +54,7 @@ public class Tintolmarketskel {
 		Utils.sendFile(outStream, image);
 
 		Commands message = (Commands) inStream.readObject();
-
+		
 		if ( message.equals( Commands.SUCCESS))
 			System.out.println( "Wine sucessfully added" );
 		else
@@ -123,10 +122,10 @@ public class Tintolmarketskel {
 	}
 	
 
-	public void wallet () throws IOException, ClassNotFoundException {
-
+	public void wallet() throws IOException, ClassNotFoundException {
 		outStream.writeObject(Commands.WALLET);
 		outStream.writeObject(username);
+		
 		Commands message = (Commands) inStream.readObject();
 
 		if(message.equals(Commands.ERROR)){

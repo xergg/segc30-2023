@@ -94,8 +94,12 @@ public class TintolmarketServer_API {
 		if(!registered) {
 			saveToFile(clientID, password);
 			AccountHandler.addAccount(clientID);
-		}
-
+			outStream.writeObject(Commands.SUCCESS);
+		} else if (!passCorrect)
+			outStream.writeObject(Commands.INVALID_LOGIN);
+		else
+			outStream.writeObject(Commands.VALID_LOGIN);
+		
 		return registered ? passCorrect : true;
 	}
 
@@ -159,7 +163,7 @@ public class TintolmarketServer_API {
 		try {
 
 			AccountHandler.checkValid(userID);
-			WineHandler.newSale(wineID, value, userID, quantity);
+			SaleHandler.addStock(wineID, value, userID, quantity);
 
 		} catch (AccountNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -251,9 +255,8 @@ public class TintolmarketServer_API {
 			e.printStackTrace();
 		}
 		double balance = AccountHandler.getBalance(userID);
+		System.out.print("API" + balance);
 		outStream.writeObject(balance);
-
-
 	}
 
 

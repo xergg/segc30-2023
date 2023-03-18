@@ -8,16 +8,13 @@ public class Wine {
 
 	private String wineID;
 	private List<Integer> ratings = new ArrayList<Integer>();
+	private List<Sale> sales = new ArrayList<Sale>(); 
 	private String filename;
-	private double price;
-	private int quantity; 
 	
 	public Wine(String wineID, String filename) {
 		
 		this.wineID = wineID;
 		this.filename = filename;
-		this.price = 0;
-		this.quantity = 0;
 	}
 
 	public String getName() {
@@ -41,16 +38,27 @@ public class Wine {
 		ratings.add(rating);
 	}
 
-	public double getPrice() {
-		return price;
+	public boolean containsSale(Sale sale) {
+		return sales.contains(sale);
 	}
 
-	public void addStock(int quantity, int value) {	
-		this.quantity += quantity;
-		this.price = value;
+	public void setStock(int quantity, int value, String userID) {
+		for(Sale s : sales)
+			if(s.getSeller().equals(userID))
+				s.setStock(quantity, value);
+			
+	}
+
+	public void addSale(Sale sale) {
+		sales.add(sale);
+	}
+
+	public int getQuantity() {
+		int qty = 0;
+		for(Sale s : sales)
+			qty += s.getQuantity();
+		return qty;
 	}
 	
-	public int getQuantity() {
-		return this.quantity;
-	}
+	
 }
