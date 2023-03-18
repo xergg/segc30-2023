@@ -63,8 +63,8 @@ public class Utils {
 
 
 	private static void checkArgsNum( Object[] args, int... numArgs ) throws IncorrectNumberOfArgumentsException {
-		int argsNum = args.length-1;
-			
+		int argsNum = args.length;
+		
 		if ( Arrays.stream( numArgs ).noneMatch( n -> n == argsNum ) )
             throw new IncorrectNumberOfArgumentsException( Arrays.toString( numArgs ));
 	}

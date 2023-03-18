@@ -44,14 +44,6 @@ public enum Commands {
 		this.stubMethodName = stubMethodName;
 		this.numberOfArguments = 0;
 	}
-	
-	Commands( CommandType type, int numberOfArguments )
-    {
-        this.type = type;
-        this.numberOfArguments = 0;
-        this.stubMethodName = null;
-    }
-	
 
     Commands( CommandType type, String stubMethodName, int numberOfArguments )
     {

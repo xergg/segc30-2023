@@ -94,11 +94,15 @@ public class Tintolmarket {
 		
 		if(command.equals("quit"))
 			return;
-		String[] commandArray = command.split(" ", 3);
+		String[] commandArray = command.split(" ", 2);
 		Commands commandEnum = Commands.valueOfType(commandArray[0]);
+		String[] commandArgs = new String[0];
+		
+		if(commandArray.length > 1)
+			commandArgs = commandArray[1].split( "[\\s](?=([^\"']*[\"'][^\"']*[\"'])*[^\"']*$)" );
 
 		try {
-			invokeMethod(client, stubMethodsMap, commandEnum, commandArray, true);			
+			invokeMethod(client, stubMethodsMap, commandEnum, commandArgs, true);			
 		} catch (Exception e){
 			System.out.println(e.getMessage());
 		}
