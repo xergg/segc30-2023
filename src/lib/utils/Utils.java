@@ -32,7 +32,7 @@ public class Utils {
 				command.getMethodName().isEmpty() )
 			System.out.print("Operation is not valid!");
 
-		String key = command.getMethodName().get();
+		String key = command.getMethodName().get().toLowerCase();
 		
 		if ( methodsMap.containsKey( key ) ) 
 			methodsMap.get( key ).invoke( obj );

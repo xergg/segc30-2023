@@ -108,7 +108,6 @@ public class Tintolmarket {
 		}
 	}
 
-
 	private static String menuToString() {
 		return "Available operations: \n"+
 				"- add <wine> <image> \n" + 
