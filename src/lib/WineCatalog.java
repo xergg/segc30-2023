@@ -22,11 +22,6 @@ public class WineCatalog {
 		wineList.put(wine.getName(), wine);
 	}
 
-	public static void buyWine(String wineID, String seller, int quantity) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public static Wine getWine(String wineID) throws NullArgumentException, WineNotFoundException {
 		if(wineID == null)
 			throw new NullArgumentException();
@@ -48,7 +43,8 @@ public class WineCatalog {
 	}
 
 
-	public static void addStock(Wine wine, int value, String userID, int quantity) {
+	public static void addStock(String wineID, int value, String userID, int quantity) throws NullArgumentException, WineNotFoundException {
+		Wine wine = getWine(wineID);
 		
 		if(sellersList.containsKey(userID))
 			sellersList.get(userID).get(wine.getName()).addStock(quantity, value);

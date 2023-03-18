@@ -149,7 +149,7 @@ public class TintolmarketServer_API {
 
 	}
 
-	public void sell () throws IOException, ClassNotFoundException {
+	public void sell () throws IOException, ClassNotFoundException, NullArgumentException {
 
 		String userID = (String) inStream.readObject();
 		String wineID = (String) inStream.readObject();
@@ -164,9 +164,13 @@ public class TintolmarketServer_API {
 		} catch (AccountNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NullArgumentException e) {
+		} catch (WineDoesNotExistException e) {
+			e.printStackTrace();
+			outStream.writeObject(Commands.ERROR);
+		} catch (WineNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			outStream.writeObject(Commands.ERROR);
 		} 
 
 		outStream.writeObject(Commands.SUCCESS);
