@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.security.auth.login.AccountNotFoundException;
 
@@ -24,6 +25,7 @@ import lib.SaleHandler;
 import lib.Wine;
 import lib.WineHandler;
 import lib.enums.Commands;
+import lib.utils.Utils;
 
 
 public class TintolmarketServer_API {
@@ -111,14 +113,22 @@ public class TintolmarketServer_API {
 
 		String userID = (String) inStream.readObject();
 		String wineID = (String) inStream.readObject();
-		String filename = (String) inStream.readObject();
 		boolean operationSuccessful = false;
 
 		try {
-
+			
 			AccountHandler.checkValid(userID);
-			WineHandler.create(userID, wineID, filename);
+
+			UUID imageId = UUID.randomUUID();
+			
+			String ImagePath = "./data/serverImages/" + imageId + ".png";
+
+			byte[] buffer = Utils.receiveFile( inStream );
+			Utils.createFile( buffer, ImagePath );
+
+			WineHandler.create(userID, wineID, ImagePath);
 			operationSuccessful = true;
+
 
 		} catch (AccountNotFoundException e) {
 			e.printStackTrace();
@@ -126,8 +136,10 @@ public class TintolmarketServer_API {
 			e2.printStackTrace();
 		} catch (WineAlreadyExistsException e3) {
 			e3.printStackTrace();
+		} catch (IOException e4) {
+			e4.printStackTrace();
 		}
-
+		
 		if (operationSuccessful) {
 			outStream.writeObject(Commands.SUCCESS);
 		} 

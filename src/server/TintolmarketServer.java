@@ -3,8 +3,14 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import lib.utils.Utils;
+
 public class TintolmarketServer {
 
+	static
+    {
+        Utils.createDirectories("./data/serverImages" );
+    }
 	public static void main(String[] args) {
 		if (args.length < 1) {
 			System.out.println("Wrong number of arguments");

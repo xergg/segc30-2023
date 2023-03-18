@@ -5,8 +5,21 @@ import java.util.Map;
 
 import lib.enums.Commands;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
 public class Utils {
@@ -54,6 +67,66 @@ public class Utils {
 
 		if ( Arrays.stream( numArgs ).noneMatch( n -> n == argsNum ) )
 			System.out.println("Incorrect number of args");
+	}
+
+	
+	//Utils for files 
+
+	public static void sendFile( ObjectOutput outStream, File file ) throws IOException
+    {
+        FileInputStream fileInStream = new FileInputStream( file );
+        InputStream inStream = new BufferedInputStream( fileInStream );
+
+        // pomos o conteudo do ficheiro num buffer para enviarmos ao servidor
+        byte[] buffer = new byte[(int)file.length()];
+        int bytesRead = inStream.read( buffer );
+
+        // enviamos o tamanho do ficheiro e ficheiro
+        outStream.writeInt( bytesRead );
+        outStream.write( buffer, 0, bytesRead );
+        outStream.flush();
+
+        inStream.close();
+        fileInStream.close();
+    }
+
+
+	public static byte[] receiveFile( ObjectInput inStream ) throws IOException
+    {
+        int fileSize = inStream.readInt();
+        byte[] buffer = new byte[fileSize];
+
+        inStream.readFully( buffer, 0, fileSize );
+
+        return buffer;
+    }
+
+	public static void createFile( byte[] buffer, String filePath ) throws IOException
+    {
+
+        File fileReceived = new File( filePath );
+
+        try ( FileOutputStream fileOutStream = new FileOutputStream( fileReceived );
+              OutputStream output = new BufferedOutputStream( fileOutStream ) )
+        {
+            output.write( buffer );
+        }
+        catch ( FileNotFoundException e )
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+	public static void createDirectories(String path) {
+		try
+        {
+            Files.createDirectories( Paths.get(path) );
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
 	}
 
 }

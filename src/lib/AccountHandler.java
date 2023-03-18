@@ -4,8 +4,6 @@ import java.util.Optional;
 
 import javax.security.auth.login.AccountNotFoundException;
 
-import lib.enums.Commands;
-
 public class AccountHandler {
 
     private AccountHandler() { }

@@ -1,13 +1,14 @@
 package client;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 import lib.Wine;
 import lib.enums.Commands;
+import lib.utils.Utils;
 
 public class Tintolmarketskel {
 
@@ -49,7 +50,9 @@ public class Tintolmarketskel {
 		outStream.writeObject(Commands.ADD);
 		outStream.writeObject(username);
 		outStream.writeObject(wineID);
-		outStream.writeObject(filename);
+		
+		File image = new File(filename);
+		Utils.sendFile(outStream, image);
 
 		Commands message = (Commands) inStream.readObject();
 
