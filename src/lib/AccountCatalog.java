@@ -23,6 +23,8 @@ public class AccountCatalog
     }
 
     public static Optional<Account> getAccountByClientID( String userID ){
+		System.out.print(accountsByClientID.get( userID ).toString());
+
         return Optional.ofNullable( accountsByClientID.get( userID ) );
     }
 

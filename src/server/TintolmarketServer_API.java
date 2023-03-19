@@ -248,6 +248,7 @@ public class TintolmarketServer_API {
 	public void wallet () throws IOException, ClassNotFoundException {
 
 		String userID = (String) inStream.readObject();
+		
 		try {
 			AccountHandler.checkValid(userID);
 		} catch (AccountNotFoundException e) {
@@ -312,16 +313,14 @@ public class TintolmarketServer_API {
 		//verificar primeiro se os users sao validos
 		String userID = (String) inStream.readObject();
 
-
 		try{
 			AccountHandler.checkValid(userID);
 
 			String messages = AccountHandler.read(userID);
 
-			outStream.writeObject(messages);
-
 			outStream.writeObject(Commands.SUCCESS);
-
+			outStream.writeObject(messages);
+			
 		} catch (AccountNotFoundException e){
 			e.printStackTrace();
 		}

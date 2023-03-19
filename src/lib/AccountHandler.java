@@ -15,8 +15,8 @@ public class AccountHandler {
     }
 
 	public static void checkValid(String userID) throws AccountNotFoundException {
+
 		if(userID != null) {
-			
 			Optional<Account> account = AccountCatalog.getAccountByClientID( userID );
 
 	     	if ( account.isEmpty() ) throw new AccountNotFoundException();

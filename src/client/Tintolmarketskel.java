@@ -94,7 +94,6 @@ public class Tintolmarketskel {
 		else {
 			Wine wine = (Wine)inStream.readObject();
 			
-
 			System.out.println("Vinho:" + wine.getName() + "\n" + "imagem:" + wine.getImage() +"\n" + "Classificacao:" + wine.getRating() + "\n" +
 			"Vendas: " + wine.getQuantity());
 
@@ -133,7 +132,7 @@ public class Tintolmarketskel {
 			System.out.println("There was an error checking your wallet.");
 		
 		} else {
-			String balance = (String) inStream.readObject();
+			double balance = (double) inStream.readObject();
 			System.out.println("The balance in your wallet is: " + balance);
 
 		}
@@ -195,10 +194,8 @@ public class Tintolmarketskel {
 		}
 
 		else {
-
 			String messagesToRead = (String) inStream.readObject();
 			System.out.println(messagesToRead);
-
 		}
 	
 	}
