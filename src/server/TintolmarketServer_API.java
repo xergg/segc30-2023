@@ -192,7 +192,6 @@ public class TintolmarketServer_API {
 			Wine wine = WineHandler.getWine(wineID);
 
 			outStream.writeObject(Commands.SUCCESS);
-
 			outStream.writeObject(wine);
 
 			operationSuccessful = true;

@@ -33,7 +33,7 @@ public class Tintolmarketskel {
 		socket.close();
 	}
 
-	public boolean login(String username, String password) throws IOException, ClassNotFoundException {
+	public Commands login(String username, String password) throws IOException, ClassNotFoundException {
 		//ClientID
 		outStream.writeObject(username);
 
@@ -41,7 +41,7 @@ public class Tintolmarketskel {
 		outStream.writeObject(password);
 
 		Commands auth = (Commands) inStream.readObject();
-		return auth.equals(Commands.VALID_LOGIN);
+		return auth;
 	}
 
 	public void add (String wineID, String filename) throws IOException, ClassNotFoundException {

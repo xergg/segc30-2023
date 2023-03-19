@@ -59,11 +59,13 @@ public class Tintolmarket {
 
 			client.connect(username, host, tcpPort);
 			System.out.println("Connected to server");
-			boolean validLogin = client.login(username, password);
+			Commands validLogin = client.login(username, password);
 			
-			if (validLogin) {
+			if (validLogin.equals(Commands.VALID_LOGIN)) 
 				System.out.println("Login sucessful!");
-			} else {
+			else if (validLogin.equals(Commands.SUCCESS))
+				System.out.println("You just entered the list!");
+			 else {
 				System.err.println("Login failed!");
 				System.exit(-1);
 			}
