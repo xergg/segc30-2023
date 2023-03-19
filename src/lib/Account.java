@@ -1,7 +1,8 @@
 package lib;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Account {
+public class Account implements Serializable{
 
 	private final String clientID;
 	private double balance = 200;

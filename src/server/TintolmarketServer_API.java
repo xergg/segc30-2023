@@ -62,10 +62,11 @@ public class TintolmarketServer_API {
 
 		try {
 
-			FileOutputStream file = new FileOutputStream(uFile);
+			FileOutputStream file = new FileOutputStream(uFile , true);
 			// get the content in bytes
 			byte[] contentInBytes = saveU.getBytes();
 			file.write(contentInBytes);
+			file.write('\n');
 			file.flush();
 			file.close();
 

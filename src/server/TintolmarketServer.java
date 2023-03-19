@@ -3,13 +3,14 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import lib.enums.Paths;
 import lib.utils.Utils;
 
 public class TintolmarketServer {
 
 	static
     {
-        Utils.createDirectories("./data/serverImages" );
+        Utils.createDirectories(Paths.IMAGES.getPath());
     }
 	public static void main(String[] args) {
 		if (args.length < 1) {

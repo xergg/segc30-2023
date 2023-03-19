@@ -1,10 +1,11 @@
 package lib;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 
-public class Wine {
+public class Wine implements Serializable{
 
 	private String wineID;
 	private List<Integer> ratings = new ArrayList<Integer>();

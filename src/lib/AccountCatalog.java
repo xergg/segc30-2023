@@ -1,10 +1,15 @@
 package lib;
 
+import java.io.File;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class AccountCatalog
+import lib.enums.Paths;
+import lib.utils.Utils;
+
+public class AccountCatalog implements Serializable
 {
     // Singleton
     private static final AccountCatalog INSTANCE = new AccountCatalog();
@@ -18,8 +23,20 @@ public class AccountCatalog
         return INSTANCE;
     }
 
+    static{
+        Utils.createDirectories(Paths.USER_DIRECTORY.getPath());
+
+        File users = new File (Paths.USER_DATA.getPath());
+
+        if(!Utils.createNewFile(users)){
+            accountsByClientID = ( Map<String,Account> ) Utils.loadFromFile(Paths.USER_DATA.getPath());
+        }
+
+    }
+
     public static void insert( Account account ){
         accountsByClientID.put( account.getClientID(), account );
+        Utils.saveToFile(accountsByClientID, Paths.USER_DATA.getPath());
     }
 
     public static Optional<Account> getAccountByClientID( String userID ){
@@ -35,5 +52,6 @@ public class AccountCatalog
 	public static void transfer(String userID, String seller, double value) {
 		AccountCatalog.getAccountByClientID(userID).get().setBalance(value, false);
 		AccountCatalog.getAccountByClientID(seller).get().setBalance(value, true);
+        Utils.saveToFile(accountsByClientID, Paths.USER_DATA.getPath());
 	}
 }

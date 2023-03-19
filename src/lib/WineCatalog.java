@@ -1,6 +1,7 @@
 package lib;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import exceptions.WineNotFoundException;
 import lib.enums.Paths;
 import lib.utils.Utils;
 
-public class WineCatalog {
+public class WineCatalog implements Serializable {
 
     private static final WineCatalog INSTANCE = new WineCatalog();
     private static Map <String, Wine> wineList = new HashMap<>();

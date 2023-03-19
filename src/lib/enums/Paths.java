@@ -2,15 +2,15 @@ package lib.enums;
 
 public enum Paths {
         //Users
-        USER_DIRECTORY("./server-data/users"),
-        USER_DATA("./users.dat"),
+        USER_DIRECTORY("./data/server-data/users"),
+        USER_DATA(Paths.USER_DIRECTORY.getPath() + "./users.dat"),
 
         //Wines
-        WINE_DIRECTORY( "./server-data/wines"),
-        WINE_DATA("./wines.dat"),
+        WINE_DIRECTORY( "./data/server-data/wines"),
+        WINE_DATA(Paths.WINE_DIRECTORY.getPath() + "./wines.dat"),
         
         //Image 
-        IMAGES("./server-data/server-images");
+        IMAGES("./data/server-data/server-images");
 
     private final String path;
 

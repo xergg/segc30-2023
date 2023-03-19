@@ -1,6 +1,8 @@
 package lib;
 
-public class Sale {
+import java.io.Serializable;
+
+public class Sale implements Serializable {
 
     private int quantity;
     private int value;

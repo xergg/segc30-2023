@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Tintolmarket",
+            "request": "launch",
+            "mainClass": "client.Tintolmarket",
+            "args": "127.0.0.1:1234 baap 1234",
+            "projectName": "segc30-2023"
+        },
+        {
+            "type": "java",
+            "name": "TintolmarketServer",
+            "request": "launch",
+            "args": "1234",
+            "mainClass": "server.TintolmarketServer",
+            "projectName": "segc30-2023"
+        }
+    ]
+}
