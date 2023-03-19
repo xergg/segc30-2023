@@ -15,7 +15,7 @@
             "name": "Tintolmarket",
             "request": "launch",
             "mainClass": "client.Tintolmarket",
-            "args": "127.0.0.1:1234 baap 1234",
+            "args": "127.0.0.1:1234 amilcar 1234",
             "projectName": "segc30-2023"
         },
         {

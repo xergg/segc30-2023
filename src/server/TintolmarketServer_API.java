@@ -30,7 +30,7 @@ import lib.utils.Utils;
 
 public class TintolmarketServer_API {
 
-	private static File uFile;
+	private static final File uFile = new File("users.txt");
 
 	private final ObjectInput inStream;
 	private final ObjectOutput outStream;
@@ -42,10 +42,9 @@ public class TintolmarketServer_API {
 
 	public String authentication() throws IOException, ClassNotFoundException{
 
-		uFile = new File ("users.txt");
+		
 
-		if(!uFile.exists())
-			uFile.createNewFile();
+		
 
 		String clientID = inStream.readObject().toString();
 		String password = inStream.readObject().toString();
@@ -248,16 +247,28 @@ public class TintolmarketServer_API {
 	public void wallet () throws IOException, ClassNotFoundException {
 
 		String userID = (String) inStream.readObject();
-		
+		boolean operationSuccessful = false;
+
+
+
 		try {
 			AccountHandler.checkValid(userID);
+			operationSuccessful = true;
 		} catch (AccountNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		double balance = AccountHandler.getBalance(userID);
-		System.out.print("API" + balance);
-		outStream.writeObject(balance);
+			System.out.print("API" + balance);
+			outStream.writeObject(balance);
+
+		if(!operationSuccessful){
+			outStream.writeObject(Commands.ERROR);
+		} else {
+			outStream.writeObject(Commands.SUCCESS);
+		}
+			
 	}
 
 
