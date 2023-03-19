@@ -1,10 +1,13 @@
 package lib;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import exceptions.NullArgumentException;
 import exceptions.WineNotFoundException;
+import lib.enums.Paths;
+import lib.utils.Utils;
 
 public class WineCatalog {
 
@@ -17,8 +20,20 @@ public class WineCatalog {
         return INSTANCE;
     }
 
+	static{
+        Utils.createDirectories(Paths.WINE_DIRECTORY.getPath());
+
+        File wines = new File (Paths.WINE_DATA.getPath());
+
+        if(!Utils.createNewFile(wines)){
+            wineList = ( Map<String,Wine> ) Utils.loadFromFile(Paths.WINE_DATA.getPath());
+        }
+
+    }
+
 	public static void create(Wine wine) {
 		wineList.put(wine.getName(), wine);
+		Utils.saveToFile(wineList, Paths.WINE_DATA.getPath() );
 	}
 
 	public static Wine getWine(String wineID) throws NullArgumentException, WineNotFoundException {
@@ -48,6 +63,8 @@ public class WineCatalog {
 			wine.setStock(quantity, value, userID);
 		else
 			wine.addSale(sale);
+		
+		Utils.saveToFile(wineList, Paths.WINE_DATA.getPath() );
 	}
 
 }

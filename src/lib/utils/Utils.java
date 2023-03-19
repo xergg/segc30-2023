@@ -16,7 +16,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -127,6 +129,50 @@ public class Utils {
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public static void saveToFile(Object obj , String file){
+		try (FileOutputStream fos = new FileOutputStream(file);
+    		ObjectOutputStream oos = new ObjectOutputStream(fos)){
+        	oos.writeObject(obj);
+    
+		} catch (IOException e) {
+    		e.printStackTrace();
+		}
+	}
+
+	public static Object loadFromFile(String file){
+		
+			try ( FileInputStream fis = new FileInputStream( file );
+				  ObjectInputStream ois = new ObjectInputStream( fis ) )
+			{
+				return ois.readObject();
+			}
+			catch ( ClassNotFoundException e1 )
+			{
+				e1.printStackTrace();
+			}
+			catch ( IOException e2 )
+			{
+				e2.printStackTrace();
+			}
+	
+			return null;
+		
+	}
+
+
+	public static boolean createNewFile(File file) {
+
+            try {
+				return file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return false;
+
 	}
 
 }
