@@ -54,4 +54,8 @@ public class AccountCatalog implements Serializable
 		AccountCatalog.getAccountByClientID(seller).get().setBalance(value, true);
         Utils.saveToFile(accountsByClientID, Paths.USER_DATA.getPath());
 	}
+
+    public static void save(){
+        Utils.saveToFile(accountsByClientID,Paths.USER_DATA.getPath());
+    }
 }

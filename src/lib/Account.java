@@ -30,10 +30,13 @@ public class Account implements Serializable{
 
 	public String readMessages(){
 		StringBuilder str = new StringBuilder();
+		if(messageList.isEmpty())
+			return "";
+			
 		for(String message : messageList){
 			str.append(message + "\n");
-			messageList.remove(message);
 		}
+		messageList.clear();
 
 		return str.toString();
 	}

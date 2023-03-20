@@ -6,6 +6,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import lib.AccountHandler;
 import lib.Wine;
 import lib.enums.Commands;
 import lib.utils.Utils;
@@ -55,10 +57,10 @@ public class Tintolmarketskel {
 
 		Commands message = (Commands) inStream.readObject();
 		
-		if ( message.equals( Commands.SUCCESS))
-			System.out.println( "Wine sucessfully added" );
-		else
+		if ( message.equals( Commands.ERROR))
 			System.out.println( "Wine already exists!" );
+		else
+			System.out.println( "Wine sucessfully added");
 	}
 
 	public void sell (String wineID, int value, int quantity) throws IOException, ClassNotFoundException {
@@ -100,7 +102,7 @@ public class Tintolmarketskel {
 		}
 	}
 
-	public void buy (String wineID, String seller, int quantity) throws IOException, ClassNotFoundException {
+	public void buy (String wineID, String seller, String quantity) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.BUY);
 		outStream.writeObject(username);
@@ -141,11 +143,13 @@ public class Tintolmarketskel {
 	
 
 
-	public void classify (String wineID, int stars) throws IOException, ClassNotFoundException {
+	public void classify (String wineID, String starsS) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.CLASSIFY);
 		outStream.writeObject(wineID);
+		int stars = Integer.parseInt(starsS);
 		outStream.writeObject(stars);
+
 		Commands message = (Commands) inStream.readObject();
 
 		if(message.equals(Commands.ERROR)){
@@ -161,13 +165,14 @@ public class Tintolmarketskel {
 
 		
 	}
-	
 	public void talk (String user, String msg) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.TALK);
+		outStream.writeObject(username);
 		outStream.writeObject(user);
 		outStream.writeObject(msg);
 		
+
 		Commands message = (Commands) inStream.readObject();
 
 		if(message.equals(Commands.ERROR)){
@@ -175,9 +180,7 @@ public class Tintolmarketskel {
 		}
 
 		else {
-
-			String messageSent = (String) inStream.readObject();
-			System.out.println(messageSent);
+			System.out.println("Message sent");
 
 		}
 	}
@@ -194,8 +197,9 @@ public class Tintolmarketskel {
 		}
 
 		else {
+			
 			String messagesToRead = (String) inStream.readObject();
-			System.out.println(messagesToRead);
+			System.out.println("messages:" + messagesToRead);
 		}
 	
 	}

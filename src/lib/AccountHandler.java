@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import javax.security.auth.login.AccountNotFoundException;
 
+import lib.utils.Utils;
+
 public class AccountHandler {
 
     private AccountHandler() { }
@@ -30,12 +32,15 @@ public class AccountHandler {
 	public static void talk(String clientID, String message){
 
 		AccountCatalog.getAccountByClientID(clientID).get().receiveMessage(message);
-
+		AccountCatalog.save();
 	}
 
 	public static String read(String clientID){
 
-		return AccountCatalog.getAccountByClientID(clientID).get().readMessages();
-
+		String message = AccountCatalog.getAccountByClientID(clientID).get().readMessages();
+		AccountCatalog.save();
+		return message;
 	}
+
+
 }

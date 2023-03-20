@@ -25,6 +25,7 @@ import lib.SaleHandler;
 import lib.Wine;
 import lib.WineHandler;
 import lib.enums.Commands;
+import lib.enums.Paths;
 import lib.utils.Utils;
 
 
@@ -42,9 +43,7 @@ public class TintolmarketServer_API {
 
 	public String authentication() throws IOException, ClassNotFoundException{
 
-		
-
-		
+		uFile.createNewFile();
 
 		String clientID = inStream.readObject().toString();
 		String password = inStream.readObject().toString();
@@ -94,11 +93,7 @@ public class TintolmarketServer_API {
 		if(!registered) {
 			saveToFile(clientID, password);
 			AccountHandler.addAccount(clientID);
-			outStream.writeObject(Commands.SUCCESS);
-		} else if (!passCorrect)
-			outStream.writeObject(Commands.INVALID_LOGIN);
-		else
-			outStream.writeObject(Commands.VALID_LOGIN);
+		}
 		
 		return registered ? passCorrect : true;
 	}
@@ -112,7 +107,7 @@ public class TintolmarketServer_API {
 
 		invokeMethod(this, skelmethods, command);
 	}
-
+	//PRECISO TESTAR
 	public void add () throws ClassNotFoundException, IOException  {
 
 		String userID = (String) inStream.readObject();
@@ -120,14 +115,15 @@ public class TintolmarketServer_API {
 		boolean operationSuccessful = false;
 
 		try {
-			
+			//Falta verificar se ja existe o vinho antes de transferir a imagem
 			AccountHandler.checkValid(userID);
 
 			UUID imageId = UUID.randomUUID();
 			
-			String ImagePath = "./data/serverImages/" + imageId + ".png";
+			String ImagePath = Paths.IMAGES.getPath() + "/" + imageId + ".png";
 
 			byte[] buffer = Utils.receiveFile( inStream );
+			
 			Utils.createFile( buffer, ImagePath );
 
 			WineHandler.create(userID, wineID, ImagePath);
@@ -144,15 +140,15 @@ public class TintolmarketServer_API {
 			e4.printStackTrace();
 		}
 		
-		if (operationSuccessful) {
-			outStream.writeObject(Commands.SUCCESS);
-		} 
-		else {
+		if (!operationSuccessful) {
 			outStream.writeObject(Commands.ERROR);
+		}
+		else {
+			outStream.writeObject(Commands.SUCCESS);
 		}
 
 	}
-
+	//TODO
 	public void sell () throws IOException, ClassNotFoundException, NullArgumentException {
 
 		String userID = (String) inStream.readObject();
@@ -180,7 +176,7 @@ public class TintolmarketServer_API {
 		outStream.writeObject(Commands.SUCCESS);
 
 	}
-
+	//TODO
 	public void view () throws IOException, ClassNotFoundException {
 
 		boolean operationSuccessful = false;
@@ -191,7 +187,6 @@ public class TintolmarketServer_API {
 
 			Wine wine = WineHandler.getWine(wineID);
 
-			outStream.writeObject(Commands.SUCCESS);
 			outStream.writeObject(wine);
 
 			operationSuccessful = true;
@@ -208,7 +203,7 @@ public class TintolmarketServer_API {
 			outStream.writeObject(Commands.ERROR);
 
 	}
-
+	//TODO
 	public void buy () throws IOException, ClassNotFoundException {
 
 		String userID = (String) inStream.readObject();
@@ -243,7 +238,7 @@ public class TintolmarketServer_API {
 		}		
 	}
 
-
+	//DONE
 	public void wallet () throws IOException, ClassNotFoundException {
 
 		String userID = (String) inStream.readObject();
@@ -261,17 +256,17 @@ public class TintolmarketServer_API {
 		
 		double balance = AccountHandler.getBalance(userID);
 			System.out.print("API" + balance);
-			outStream.writeObject(balance);
 
 		if(!operationSuccessful){
 			outStream.writeObject(Commands.ERROR);
 		} else {
 			outStream.writeObject(Commands.SUCCESS);
+			outStream.writeObject(balance);
 		}
 			
 	}
 
-
+	//DONE
 	public void classify () throws IOException, ClassNotFoundException {
 
 		String wineID = (String) inStream.readObject();
@@ -279,10 +274,12 @@ public class TintolmarketServer_API {
 		boolean operationSuccessful = false;
 
 		try {
+			if (stars<=5 && stars>=0){
+				
+				WineHandler.classify(wineID, stars);
 
-			WineHandler.classify(wineID, stars);
-
-			operationSuccessful = true;
+				operationSuccessful = true;
+			}
 
 		} catch (WineNotFoundException e ){
 			e.printStackTrace();
@@ -290,17 +287,19 @@ public class TintolmarketServer_API {
 			e1.printStackTrace();
 		}
 
-		if(operationSuccessful){
-			outStream.writeObject(Commands.SUCCESS);
-		} else {
+		if(!operationSuccessful){
 			outStream.writeObject(Commands.ERROR);
+		} else {
+			outStream.writeObject(Commands.SUCCESS);
 		}
 
 
 	}
-
+	//FALTA VERIFICAR Q USER E USERID SAO DIFERENTES 
+	
 	public void talk () throws IOException, ClassNotFoundException {
 
+		boolean operationSuccessful = false;
 		//verificar primeiro se os users sao validos
 		String userID = (String) inStream.readObject();
 		String user = (String) inStream.readObject(); //o user a que vai ser enviado
@@ -312,29 +311,42 @@ public class TintolmarketServer_API {
 			String msg = (String) inStream.readObject();
 			AccountHandler.talk(user, userID + ":" + msg);
 			outStream.writeObject(Commands.MESSAGE_SENT);	
+			operationSuccessful = true;
 
 		} catch (AccountNotFoundException e){
 			e.printStackTrace();
 		}
 
+		if(!operationSuccessful){
+			outStream.writeObject(Commands.ERROR);
+		}
+
 	}
 
 	public void read () throws IOException, ClassNotFoundException{
-
+		boolean operationSuccessful = false;
 		//verificar primeiro se os users sao validos
 		String userID = (String) inStream.readObject();
 
 		try{
 			AccountHandler.checkValid(userID);
 
+
 			String messages = AccountHandler.read(userID);
 
 			outStream.writeObject(Commands.SUCCESS);
 			outStream.writeObject(messages);
+			operationSuccessful = true;
+
 			
 		} catch (AccountNotFoundException e){
 			e.printStackTrace();
 		}
+
+		if(!operationSuccessful)
+			outStream.writeObject(Commands.ERROR);
+
+
 
 	}
 }
