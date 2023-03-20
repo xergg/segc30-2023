@@ -295,8 +295,9 @@ public class TintolmarketServer_API {
 
 
 	}
-	//FALTA VERIFICAR Q USER E USERID SAO DIFERENTES 
 	
+	//FALTA VERIFICAR Q USER E USERID SAO DIFERENTES 
+
 	public void talk () throws IOException, ClassNotFoundException {
 
 		boolean operationSuccessful = false;
