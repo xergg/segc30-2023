@@ -45,10 +45,10 @@ public class Wine implements Serializable{
 	}
 
 	public void setStock(int quantity, double value, String userID) {
-		for(Sale s : sales)
-			if(s.getSeller().equals(userID))
-				s.setStock(quantity, value);
-			
+
+		for(Sale s : sales) 
+			if(s.getSeller().equals(userID)) 
+				s.setStock(quantity, value);	
 	}
 
 	public void addSale(Sale sale) {
@@ -60,6 +60,14 @@ public class Wine implements Serializable{
 		for(Sale s : sales)
 			qty += s.getQuantity();
 		return qty;
+	}
+
+	public Sale getSale(String seller) {
+		
+		for(Sale s: sales)
+			if(s.getSeller().equals(seller))
+				return s;
+		return null;
 	}
 	
 	

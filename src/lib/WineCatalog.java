@@ -22,6 +22,7 @@ public class WineCatalog implements Serializable {
     }
 
 	static{
+		 
         Utils.createDirectories(Paths.WINE_DIRECTORY.getPath());
 
         File wines = new File (Paths.WINE_DATA.getPath());
@@ -52,11 +53,6 @@ public class WineCatalog implements Serializable {
 		return wineList.get(wineID) != null;
 	}
 
-	public static Sale getSale(String wineID, String seller) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public static void addStock(String wineID, double value, String userID, int quantity) {
 		
 		Sale sale = new Sale(userID, quantity, value);
@@ -67,7 +63,10 @@ public class WineCatalog implements Serializable {
 		else
 			wine.addSale(sale);
 		
-		Utils.saveToFile(wineList, Paths.WINE_DATA.getPath() );
+		Utils.saveToFile(wineList, Paths.WINE_DATA.getPath());
 	}
-
+	
+    public static void save(){
+        Utils.saveToFile(wineList, Paths.WINE_DATA.getPath());
+    }
 }

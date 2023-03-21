@@ -28,5 +28,6 @@ public class WineHandler {
 	
 		Wine wine = WineCatalog.getWine(wineID);
 		wine.addRating(stars);
+		WineCatalog.save();
 	}
 }

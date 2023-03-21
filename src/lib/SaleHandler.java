@@ -15,9 +15,9 @@ public class SaleHandler {
 	public static void buy(String userID, String seller, String wineID, int quantity) throws WineNotFoundException, NullArgumentException, 
 	NotEnoughQuantitiesException, NotEnoughMoneyException {
 
-		Sale sale = WineCatalog.getSale(wineID, seller);
+		Sale sale = WineCatalog.getWine(wineID).getSale(seller);
 
-		if(sale.getQuantity() >= quantity) {
+		if(sale != null && sale.getQuantity() >= quantity) {
 			double value = sale.getQuantity() * sale.getValue();
 
 			if(AccountCatalog.getAccountByClientID(userID).get().getBalance() >= value)

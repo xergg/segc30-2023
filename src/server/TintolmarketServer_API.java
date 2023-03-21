@@ -158,10 +158,7 @@ public class TintolmarketServer_API {
 
 		try {
 			AccountHandler.checkValid(userID);
-			System.out.println("Oi");
 			SaleHandler.addStock(wineID, value, userID, quantity);
-			System.out.println("Oi2");
-
 			outStream.writeObject(Commands.SUCCESS);
 
 		} catch (AccountNotFoundException e) {
@@ -346,8 +343,6 @@ public class TintolmarketServer_API {
 
 		if(!operationSuccessful)
 			outStream.writeObject(Commands.ERROR);
-
-
 
 	}
 }

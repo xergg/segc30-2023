@@ -36,12 +36,10 @@ public class AccountCatalog implements Serializable
 
     public static void insert( Account account ){
         accountsByClientID.put( account.getClientID(), account );
-        Utils.saveToFile(accountsByClientID, Paths.USER_DATA.getPath());
+        save();
     }
 
     public static Optional<Account> getAccountByClientID( String userID ){
-		System.out.print(accountsByClientID.get( userID ).toString());
-
         return Optional.ofNullable( accountsByClientID.get( userID ) );
     }
 
@@ -52,7 +50,7 @@ public class AccountCatalog implements Serializable
 	public static void transfer(String userID, String seller, double value) {
 		AccountCatalog.getAccountByClientID(userID).get().setBalance(value, false);
 		AccountCatalog.getAccountByClientID(seller).get().setBalance(value, true);
-        Utils.saveToFile(accountsByClientID, Paths.USER_DATA.getPath());
+        save();
 	}
 
     public static void save(){
