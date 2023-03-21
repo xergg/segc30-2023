@@ -31,8 +31,17 @@ public class Sale implements Serializable {
     }
 
 	public void setStock(int quantity, double value2) {
-		this.quantity += quantity;
-		this.value += value2;
+        if (value2 == value){
+            this.quantity += quantity;
+        } else {
+            this.value = value2;
+            this.quantity = quantity;
+        }
+		
 	}
+
+    public void setQuantity(int bought){
+        this.quantity = this.quantity - bought;
+    }
 
 }

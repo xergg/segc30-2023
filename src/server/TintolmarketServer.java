@@ -11,9 +11,19 @@ public class TintolmarketServer {
 	static
     {
         Utils.createDirectories(Paths.IMAGES.getPath());
+		Utils.createDirectories(Paths.CLIENT_DIRECTORY.getPath());
     }
 	public static void main(String[] args) {
-		if (args.length < 1) {
+		
+		int port = 12345 ;
+
+		if (args.length == 1){
+			port = Integer.parseInt(args[0]);
+		} 
+		else if (args.length == 0){
+			port = 12345;
+		}
+		else {
 			System.out.println("Wrong number of arguments");
 			System.out.println("Example: TintolmarketServer <port>");
 			System.exit(-1);
@@ -21,7 +31,7 @@ public class TintolmarketServer {
 
 		System.out.println("Server iniciated");
 		TintolmarketServer server = new TintolmarketServer();
-		server.startServer(Integer.parseInt(args[0]));
+		server.startServer( port );
 	}
 
 	private void startServer(int port) {

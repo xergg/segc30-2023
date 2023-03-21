@@ -15,14 +15,14 @@
             "name": "Tintolmarket",
             "request": "launch",
             "mainClass": "client.Tintolmarket",
-            "args": "127.0.0.1:1234 amilcar 1234",
+            "args": "127.0.0.1:12345 beep 1234",
             "projectName": "segc30-2023"
         },
         {
             "type": "java",
             "name": "TintolmarketServer",
             "request": "launch",
-            "args": "1234",
+            "args": "12345",
             "mainClass": "server.TintolmarketServer",
             "projectName": "segc30-2023"
         }

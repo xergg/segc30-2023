@@ -10,7 +10,10 @@ public enum Paths {
         WINE_DATA(Paths.WINE_DIRECTORY.getPath() + "./wines.dat"),
         
         //Image 
-        IMAGES("./data/server-data/server-images");
+        IMAGES("./data/server-data/server-images"),
+
+        //Client 
+        CLIENT_DIRECTORY("./client-images");
 
     private final String path;
 

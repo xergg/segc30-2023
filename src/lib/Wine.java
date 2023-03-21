@@ -40,8 +40,8 @@ public class Wine implements Serializable{
 		ratings.add(rating);
 	}
 
-	public boolean containsSale(Sale sale) {
-		return sales.contains(sale);
+	public boolean containsSale(String userID) {
+		return getSale(userID) != null;
 	}
 
 	public void setStock(int quantity, double value, String userID) {
@@ -68,6 +68,19 @@ public class Wine implements Serializable{
 			if(s.getSeller().equals(seller))
 				return s;
 		return null;
+	}
+
+	public void removeSale(String seller){
+		sales.remove(getSale(seller));
+	}
+
+	public String getAllSales(){
+		StringBuilder str = new StringBuilder();
+		for (Sale sale : sales){
+			str.append(sale.toString() + "\n");
+		}
+
+		return str.toString();
 	}
 	
 	

@@ -10,6 +10,7 @@ import java.net.UnknownHostException;
 import lib.AccountHandler;
 import lib.Wine;
 import lib.enums.Commands;
+import lib.enums.Paths;
 import lib.utils.Utils;
 
 public class Tintolmarketskel {
@@ -83,8 +84,10 @@ public class Tintolmarketskel {
 
 		outStream.writeObject(Commands.VIEW);
 
-		outStream.writeObject(wineID);
+		outStream.writeObject(wineID); 
 
+		byte[] buffer = Utils.receiveFile(inStream);
+		
 		Commands message = (Commands) inStream.readObject();
 
 		if (message.equals(Commands.ERROR)){
@@ -94,10 +97,19 @@ public class Tintolmarketskel {
 		 
 		else {
 			Wine wine = (Wine) inStream.readObject();
-			
-			System.out.println("Vinho:" + wine.getName() + "\n" + "imagem:" + wine.getImage() +"\n" + "Classificacao:" + wine.getRating() + "\n" +
-			"Vendas: " + wine.getQuantity());
 
+			String ImagePath = Paths.CLIENT_DIRECTORY.getPath() + '/' + username + '/' + wine.getName() + ".png";
+			Utils.createDirectories(Paths.CLIENT_DIRECTORY.getPath() + '/' + username );
+			Utils.createFile(buffer, ImagePath);
+				
+			System.out.println("Wine:" + wine.getName());
+			System.out.println("Image:" + ImagePath);
+			if(wine.getRating().isEmpty()){
+				System.out.println( "Classification: N/A");
+			} else {
+				System.out.println("Classification: " + wine.getRating().getAsDouble());
+			}
+			System.out.println("Sales: \n" + wine.getAllSales());
 		}
 	}
 
@@ -107,7 +119,7 @@ public class Tintolmarketskel {
 		outStream.writeObject(username);
 		outStream.writeObject(wineID);
 		outStream.writeObject(seller);
-		outStream.writeObject(quantity);
+		outStream.writeObject(Integer.parseInt(quantity));
 
 		Commands message = (Commands) inStream.readObject();
 		if ( message.equals( Commands.SUCCESS))

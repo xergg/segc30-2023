@@ -35,7 +35,7 @@ public class WineCatalog implements Serializable {
 
 	public static void create(Wine wine) {
 		wineList.put(wine.getName(), wine);
-		Utils.saveToFile(wineList, Paths.WINE_DATA.getPath() );
+		save();
 	}
 
 	public static Wine getWine(String wineID) throws NullArgumentException, WineNotFoundException {
@@ -58,15 +58,17 @@ public class WineCatalog implements Serializable {
 		Sale sale = new Sale(userID, quantity, value);
 		Wine wine = wineList.get(wineID);
 		
-		if(wine.containsSale(sale))
+		//verifica pelo objeto ? 
+		if(wine.containsSale(userID))
 			wine.setStock(quantity, value, userID);
 		else
 			wine.addSale(sale);
 		
-		Utils.saveToFile(wineList, Paths.WINE_DATA.getPath());
+		save();
 	}
 	
     public static void save(){
         Utils.saveToFile(wineList, Paths.WINE_DATA.getPath());
     }
+
 }
