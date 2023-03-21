@@ -35,10 +35,9 @@ public class Utils {
 			System.out.print("Operation is not valid!");
 
 		String key = command.getMethodName().get().toLowerCase();
-		
+
 		if ( methodsMap.containsKey( key ) ) 
 			methodsMap.get( key ).invoke( obj );
-
 		else
 			System.out.println("Command not found");
 	}
@@ -51,7 +50,7 @@ public class Utils {
 			System.out.print("Operation is not valid!");
 
 		String key = command.getMethodName().get().toLowerCase();
-		
+
 		if ( methodsMap.containsKey( key ) ) {
 			try {
 				checkArgsNum(args, command.getNumberOfArguments());
@@ -66,9 +65,9 @@ public class Utils {
 
 	private static void checkArgsNum( Object[] args, int... numArgs ) throws IncorrectNumberOfArgumentsException {
 		int argsNum = args.length;
-		
+
 		if ( Arrays.stream( numArgs ).noneMatch( n -> n == argsNum ) )
-            throw new IncorrectNumberOfArgumentsException( Arrays.toString( numArgs ));
+			throw new IncorrectNumberOfArgumentsException( Arrays.toString( numArgs ));
 	}
 
 
@@ -133,45 +132,45 @@ public class Utils {
 
 	public static void saveToFile(Object obj , String file){
 		try (FileOutputStream fos = new FileOutputStream(file);
-    		ObjectOutputStream oos = new ObjectOutputStream(fos)){
-        	oos.writeObject(obj);
-    
+				ObjectOutputStream oos = new ObjectOutputStream(fos)){
+			oos.writeObject(obj);
+
 		} catch (IOException e) {
-    		e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
 	public static Object loadFromFile(String file){
-		
-			try ( FileInputStream fis = new FileInputStream( file );
-				  ObjectInputStream ois = new ObjectInputStream( fis ) )
-			{
-				return ois.readObject();
-			}
-			catch ( ClassNotFoundException e1 )
-			{
-				e1.printStackTrace();
-			}
-			catch ( IOException e2 )
-			{
-				e2.printStackTrace();
-			}
-	
-			return null;
-		
+
+		try ( FileInputStream fis = new FileInputStream( file );
+				ObjectInputStream ois = new ObjectInputStream( fis ) )
+		{
+			return ois.readObject();
+		}
+		catch ( ClassNotFoundException e1 )
+		{
+			e1.printStackTrace();
+		}
+		catch ( IOException e2 )
+		{
+			e2.printStackTrace();
+		}
+
+		return null;
+
 	}
 
 
 	public static boolean createNewFile(File file) {
 
-            try {
-				return file.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			return file.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-			return false;
+		return false;
 
 	}
 

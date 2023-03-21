@@ -29,7 +29,7 @@ public class SaleHandler {
 	}
 
 
-	public static void addStock(String wineID, int value, String userID, int quantity) throws NullArgumentException, WineNotFoundException, WineDoesNotExistException {
+	public static void addStock(String wineID, double value, String userID, int quantity) throws NullArgumentException, WineNotFoundException, WineDoesNotExistException {
 
 		if(!WineCatalog.exists(wineID))
 			throw new WineDoesNotExistException();

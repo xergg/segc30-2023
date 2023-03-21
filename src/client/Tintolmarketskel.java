@@ -63,15 +63,14 @@ public class Tintolmarketskel {
 			System.out.println( "Wine sucessfully added");
 	}
 
-	public void sell (String wineID, int value, int quantity) throws IOException, ClassNotFoundException {
+	public void sell (String wineID, String value, String quantity) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.SELL);
-
 		outStream.writeObject(username);
 		outStream.writeObject(wineID);
-		outStream.writeObject(value);
-		outStream.writeObject(quantity);
-
+		outStream.writeObject(Double.parseDouble(value));
+		outStream.writeObject(Integer.parseInt(quantity));
+		
 		Commands message = (Commands) inStream.readObject();
 
 		if ( message.equals( Commands.SUCCESS))
@@ -94,7 +93,7 @@ public class Tintolmarketskel {
 		}
 		 
 		else {
-			Wine wine = (Wine)inStream.readObject();
+			Wine wine = (Wine) inStream.readObject();
 			
 			System.out.println("Vinho:" + wine.getName() + "\n" + "imagem:" + wine.getImage() +"\n" + "Classificacao:" + wine.getRating() + "\n" +
 			"Vendas: " + wine.getQuantity());

@@ -38,8 +38,10 @@ public class WineCatalog implements Serializable {
 	}
 
 	public static Wine getWine(String wineID) throws NullArgumentException, WineNotFoundException {
+		
 		if(wineID == null)
 			throw new NullArgumentException();
+		
 		if(!wineList.containsKey(wineID))
 			throw new WineNotFoundException();
 
@@ -55,7 +57,7 @@ public class WineCatalog implements Serializable {
 		return null;
 	}
 
-	public static void addStock(String wineID, int value, String userID, int quantity) {
+	public static void addStock(String wineID, double value, String userID, int quantity) {
 		
 		Sale sale = new Sale(userID, quantity, value);
 		Wine wine = wineList.get(wineID);

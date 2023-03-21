@@ -153,13 +153,16 @@ public class TintolmarketServer_API {
 
 		String userID = (String) inStream.readObject();
 		String wineID = (String) inStream.readObject();
-		int value = (int) inStream.readObject();
+		double value = (double) inStream.readObject();
 		int quantity = (int) inStream.readObject();
 
 		try {
-
 			AccountHandler.checkValid(userID);
+			System.out.println("Oi");
 			SaleHandler.addStock(wineID, value, userID, quantity);
+			System.out.println("Oi2");
+
+			outStream.writeObject(Commands.SUCCESS);
 
 		} catch (AccountNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -172,10 +175,8 @@ public class TintolmarketServer_API {
 			e.printStackTrace();
 			outStream.writeObject(Commands.ERROR);
 		} 
-
-		outStream.writeObject(Commands.SUCCESS);
-
 	}
+	
 	//TODO
 	public void view () throws IOException, ClassNotFoundException {
 
@@ -186,9 +187,8 @@ public class TintolmarketServer_API {
 		try {
 
 			Wine wine = WineHandler.getWine(wineID);
-
+			outStream.writeObject(Commands.SUCCESS);
 			outStream.writeObject(wine);
-
 			operationSuccessful = true;
 
 		} catch (WineNotFoundException e) {

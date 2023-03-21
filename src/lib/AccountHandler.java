@@ -23,6 +23,8 @@ public class AccountHandler {
 
 	     	if ( account.isEmpty() ) throw new AccountNotFoundException();
 		}
+		
+		return;
 	}
 
 	public static double getBalance(String clientID) {

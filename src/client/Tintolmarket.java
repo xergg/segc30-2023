@@ -102,7 +102,6 @@ public class Tintolmarket {
 		
 		if(commandArray.length > 1)
 			commandArgs = commandArray[1].split( "[\\s](?=([^\"']*[\"'][^\"']*[\"'])*[^\"']*$)" );
-
 		try {
 			invokeMethod(client, stubMethodsMap, commandEnum, commandArgs, true);			
 		} catch (Exception e){
