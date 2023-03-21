@@ -27,13 +27,15 @@ public class Wine implements Serializable{
 		return filename;
 	}
 
-	public OptionalDouble getRating() {
+	public Double getRating() {
 		OptionalDouble average = ratings
             .stream()
             .mapToDouble(a -> a)
             .average();
 
-		return average;
+		if (average.isEmpty())
+			return (double) -1;
+		return average.getAsDouble();
 	}
 
 	public void addRating(int rating){

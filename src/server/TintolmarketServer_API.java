@@ -192,7 +192,10 @@ public class TintolmarketServer_API {
 
 			outStream.writeObject(Commands.SUCCESS);
 
-			outStream.writeObject(wine);
+			outStream.writeObject(wine.getName());
+			outStream.writeObject(wine.getRating());
+			outStream.writeObject(wine.getAllSales());
+
 			operationSuccessful = true;
 
 		} catch (WineNotFoundException e) {

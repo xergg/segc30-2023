@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.OptionalDouble;
 
 import lib.AccountHandler;
 import lib.Wine;
@@ -96,20 +97,22 @@ public class Tintolmarketskel {
 		}
 		 
 		else {
-			Wine wine = (Wine) inStream.readObject();
+			String wineName = (String) inStream.readObject();
+			Double wineRating = (Double) inStream.readObject();
+			String sales = (String) inStream.readObject();
 
-			String ImagePath = Paths.CLIENT_DIRECTORY.getPath() + '/' + username + '/' + wine.getName() + ".png";
+			String ImagePath = Paths.CLIENT_DIRECTORY.getPath() + '/' + username + '/' + wineName + ".png";
 			Utils.createDirectories(Paths.CLIENT_DIRECTORY.getPath() + '/' + username );
 			Utils.createFile(buffer, ImagePath);
 				
-			System.out.println("Wine:" + wine.getName());
+			System.out.println("Wine:" + wineName);
 			System.out.println("Image:" + ImagePath);
-			if(wine.getRating().isEmpty()){
+			if(wineRating == -1){
 				System.out.println( "Classification: N/A");
 			} else {
-				System.out.println("Classification: " + wine.getRating().getAsDouble());
+				System.out.println("Classification: " + wineRating);
 			}
-			System.out.println("Sales: \n" + wine.getAllSales());
+			System.out.println("Sales: \n" + sales);
 		}
 	}
 
