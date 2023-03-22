@@ -308,8 +308,6 @@ public class TintolmarketServer_API {
 
 	}
 	
-	//Mensagens com espaços ??
-
 	public void talk () throws IOException, ClassNotFoundException {
 
 		boolean operationSuccessful = false;

@@ -48,13 +48,27 @@ public class Utils {
 		if (command.getType() != Commands.CommandType.FROM_CLIENT ||
 				command.getMethodName().isEmpty() )
 			System.out.print("Operation is not valid!");
-
+		
 		String key = command.getMethodName().get().toLowerCase();
 
 		if ( methodsMap.containsKey( key ) ) {
 			try {
-				checkArgsNum(args, command.getNumberOfArguments());
-				methodsMap.get( key ).invoke( obj, Arrays.stream( args ).toArray() );
+				String [] s = args;
+				
+				if(command.toString().equals("TALK")) {
+					s = new String[2];
+					
+					StringBuilder sb = new StringBuilder();
+					for(int i = 1; i< args.length; i++)
+						sb.append(args[i] + " ");
+					sb.deleteCharAt(sb.length()-1);
+					sb.append("\n");
+					s[0] = args[0];
+					s[1] = sb.toString();
+				}
+				
+				checkArgsNum(s, command.getNumberOfArguments());
+				methodsMap.get( key ).invoke( obj, Arrays.stream( s ).toArray() );
 			} catch ( IllegalAccessException | IllegalArgumentException | InvocationTargetException e1 ) {
 				e1.printStackTrace();
 			}

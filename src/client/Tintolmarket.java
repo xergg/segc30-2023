@@ -100,7 +100,6 @@ public class Tintolmarket {
 		Commands commandEnum;
 
 		if(commandArray[0].length() == 1) {
-			System.out.println("aq");
 			commandEnum = getEnum(commandArray[0].charAt(0));
 			
 		}else
