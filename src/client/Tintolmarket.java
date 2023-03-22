@@ -32,7 +32,7 @@ public class Tintolmarket {
 		} 
 		else 
 			password = args[2];
-		
+
 
 		if(username.matches(".*[\\\\/:*?\"<>|].*")){
 			System.err.println("\nInvalid username. Characters \"\\ / : * ? \" < > | \" not allowed");
@@ -42,36 +42,36 @@ public class Tintolmarket {
 		//default
 		int tcpPort = 12345;
 		String host = args[0];
-		
+
 		if ( args[0].contains( ":" ) ) {
-            String[] hostPort = args[0].split( ":" );
-            host = hostPort[0];
-            
-            tcpPort = Integer.parseInt( hostPort[1] );
-            
-            if ( tcpPort <= 0 ) {
-                System.out.println("Port is not valid");
-                System.exit( -1 );
-            }
-        }
+			String[] hostPort = args[0].split( ":" );
+			host = hostPort[0];
+
+			tcpPort = Integer.parseInt( hostPort[1] );
+
+			if ( tcpPort <= 0 ) {
+				System.out.println("Port is not valid");
+				System.exit( -1 );
+			}
+		}
 
 		try {
 
 			client.connect(username, host, tcpPort);
 			System.out.println("Connected to server");
 			Commands validLogin = client.login(username, password);
-			
+
 			if (validLogin.equals(Commands.VALID_LOGIN)) 
 				System.out.println("Login sucessful!");
 			else if (validLogin.equals(Commands.SUCCESS))
 				System.out.println("You just entered the list!");
-			 else {
+			else {
 				System.err.println("Login failed!");
 				System.exit(-1);
 			}
-			
+
 			String command = "";
-			
+
 			Method [] methods = Tintolmarketskel.class.getMethods();
 			Map <String, Method> stubMethodsMap = new HashMap<>();
 			Arrays.stream( methods ).forEach( m -> stubMethodsMap.put( m.getName(), m));
@@ -93,13 +93,21 @@ public class Tintolmarket {
 
 
 	private static void readCommand(String command, Map<String, Method> stubMethodsMap) {
-		
+
 		if(command.equals("quit"))
 			return;
 		String[] commandArray = command.split(" ", 2);
-		Commands commandEnum = Commands.valueOfType(commandArray[0]);
-		String[] commandArgs = new String[0];
+		Commands commandEnum;
+
+		if(commandArray[0].length() == 1) {
+			System.out.println("aq");
+			commandEnum = getEnum(commandArray[0].charAt(0));
+			
+		}else
+			commandEnum = Commands.valueOfType(commandArray[0]);
 		
+		String[] commandArgs = new String[0];
+
 		if(commandArray.length > 1)
 			commandArgs = commandArray[1].split( "[\\s](?=([^\"']*[\"'][^\"']*[\"'])*[^\"']*$)" );
 		try {
@@ -108,6 +116,20 @@ public class Tintolmarket {
 			System.out.println(e.getMessage());
 		}
 	}
+
+
+	private static Commands getEnum(char command) {
+		
+		Commands returnComm = Commands.NOT_FOUND;
+		
+		for(Commands c : Commands.values()) 		
+			if(c.toString().toLowerCase().charAt(0) == command)
+				return c;
+		
+		
+		return returnComm;
+	}
+
 
 	private static String menuToString() {
 		return "Available operations: \n"+
@@ -122,4 +144,3 @@ public class Tintolmarket {
 				"- quit\n";
 	}
 }
-		

@@ -4,10 +4,6 @@ import exceptions.NullArgumentException;
 import exceptions.SameUserException;
 import exceptions.WineDoesNotExistException;
 import exceptions.WineNotFoundException;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import exceptions.NotEnoughMoneyException;
 import exceptions.NotEnoughQuantitiesException;
 

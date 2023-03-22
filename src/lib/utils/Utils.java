@@ -33,7 +33,7 @@ public class Utils {
 		if ( command.getType() != Commands.CommandType.FROM_CLIENT ||
 				command.getMethodName().isEmpty() )
 			System.out.print("Operation is not valid!");
-
+		
 		String key = command.getMethodName().get().toLowerCase();
 
 		if ( methodsMap.containsKey( key ) ) 
