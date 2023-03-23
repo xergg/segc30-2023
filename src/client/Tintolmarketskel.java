@@ -50,53 +50,81 @@ public class Tintolmarketskel {
 
 	public void add (String wineID, String filename) throws IOException, ClassNotFoundException {
 
-		outStream.writeObject(Commands.ADD);
-		outStream.writeObject(username);
-		outStream.writeObject(wineID);
-		
 		File image = new File(filename);
-		Utils.sendFile(outStream, image);
 
-		Commands message = (Commands) inStream.readObject();
-		
-		if ( message.equals( Commands.ERROR))
-			System.out.println( "Wine already exists!" );
-		else
-			System.out.println( "Wine sucessfully added");
+		if(image.exists()){
+
+
+			outStream.writeObject(Commands.ADD);
+			outStream.writeObject(username);
+			outStream.writeObject(wineID);
+			
+			
+			Utils.sendFile(outStream, image);
+	
+			Commands message = (Commands) inStream.readObject();
+			
+			if ( message.equals( Commands.ERROR)){
+				String error = (String) inStream.readObject();
+				System.out.println( error );
+			}
+			else{
+				System.out.println( "Wine sucessfully added");
+			}
+		} else {
+			System.out.println("File image does not exist");
+		}			
 	}
 
-	public void sell (String wineID, String value, String quantity) throws IOException, ClassNotFoundException {
+	public void sell (String wineID, String valueS, String quantityS) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.SELL);
 		outStream.writeObject(username);
 		outStream.writeObject(wineID);
-		outStream.writeObject(Double.parseDouble(value));
-		outStream.writeObject(Integer.parseInt(quantity));
+		Double value;
+		int quantity;
+		try {
+			value = Double.parseDouble(valueS);
+			quantity = Integer.parseInt(quantityS);
+		} catch (NumberFormatException nfe) {
+			value = -1.00;
+			quantity = -1;
+		}
+		outStream.writeObject(value);
+		outStream.writeObject(quantity);
+		
 		
 		Commands message = (Commands) inStream.readObject();
 
-		if ( message.equals( Commands.SUCCESS))
+		if ( message.equals( Commands.SUCCESS)){
 			System.out.println( "It is on sale!" );
-		else
-			System.out.println( "The wine does not exist!" );
+		}
+		else{
+			String error = (String) inStream.readObject();
+			System.out.println(error);
+		}
 	}
 
 	public void view (String wineID) throws IOException, ClassNotFoundException {
 
-		outStream.writeObject(Commands.VIEW);
-
+		outStream.writeObject(Commands.VIEW);//1
+		//2
 		outStream.writeObject(wineID); 
 
-		byte[] buffer = Utils.receiveFile(inStream);
-		
+		//3
 		Commands message = (Commands) inStream.readObject();
 
 		if (message.equals(Commands.ERROR)){
-			//falta receber mensagem de erro
-			System.out.println("Wine not Found");
+			String error = (String) inStream.readObject();
+			System.out.println(error);
 		}
 		 
 		else {
+
+			//4
+			byte[] buffer = Utils.receiveFile(inStream);
+
+			//5
 			String wineName = (String) inStream.readObject();
 			Double wineRating = (Double) inStream.readObject();
 			String sales = (String) inStream.readObject();
@@ -116,13 +144,22 @@ public class Tintolmarketskel {
 		}
 	}
 
-	public void buy (String wineID, String seller, String quantity) throws IOException, ClassNotFoundException {
+	public void buy (String wineID, String seller, String quantityS) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.BUY);
 		outStream.writeObject(username);
 		outStream.writeObject(wineID);
 		outStream.writeObject(seller);
-		outStream.writeObject(Integer.parseInt(quantity));
+		
+		int quantity;
+		
+		try {
+			quantity = Integer.parseInt(quantityS);
+		} catch (NumberFormatException nfe) {
+			quantity = -1;
+		}
+
+		outStream.writeObject(quantity);
 
 		Commands message = (Commands) inStream.readObject();
 		if ( message.equals( Commands.SUCCESS))
@@ -131,8 +168,11 @@ public class Tintolmarketskel {
 			System.out.println( "You don't have enough money to buy it!" );
 		else if (message.equals(Commands.QUANTITY_NOT_ENOUGH))
 			System.out.println( "That quantity is not available!" );
-		else 
-			System.out.println( "The wine does not exist!" );
+		else {
+			String error = (String) inStream.readObject();
+			System.out.println( error );
+		}
+			
 
 	}
 	
@@ -144,10 +184,12 @@ public class Tintolmarketskel {
 		Commands message = (Commands) inStream.readObject();
 
 		if(message.equals(Commands.ERROR)){
-			//falta receber mensagem de erro
-			System.out.println("There was an error checking your wallet.");
-		
+			
+			String error = (String) inStream.readObject();
+			System.out.println( error );
+
 		} else {
+
 			double balance = (double) inStream.readObject();
 			System.out.println("The balance in your wallet is: " + balance);
 
@@ -161,15 +203,20 @@ public class Tintolmarketskel {
 
 		outStream.writeObject(Commands.CLASSIFY);
 		outStream.writeObject(wineID);
-		int stars = Integer.parseInt(starsS);
+		int stars;
+		try {
+			stars = Integer.parseInt(starsS);
+	    } catch (NumberFormatException nfe) {
+			stars = -1;
+		}
 		outStream.writeObject(stars);
 
 		Commands message = (Commands) inStream.readObject();
 
 		if(message.equals(Commands.ERROR)){
-			//falta receber mensagem de erro
-			System.out.println("There was an error classifying the wine.");
-
+			
+			String error = (String) inStream.readObject();
+			System.out.println( error );
 
 		} else {
 
@@ -190,7 +237,10 @@ public class Tintolmarketskel {
 		Commands message = (Commands) inStream.readObject();
 
 		if(message.equals(Commands.ERROR)){
-			System.out.println("There was an issue starting a conversation with the user.");
+			
+			String error = (String) inStream.readObject();
+			System.out.println( error );
+		
 		}
 
 		else {
@@ -207,7 +257,10 @@ public class Tintolmarketskel {
 		Commands message = (Commands) inStream.readObject();
 
 		if(message.equals(Commands.ERROR)){
-			System.out.println("There was an error retrieving your messages.");
+
+			String error = (String) inStream.readObject();
+			System.out.println( error );
+
 		}
 
 		else {
