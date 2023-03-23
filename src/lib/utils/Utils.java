@@ -25,9 +25,20 @@ import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-
+/**
+ * Class used throughout most classes, mainly the client and server side, with tools to invoke methods chosen by the client and processed through the server, such as invoking the methods.
+ */
 public class Utils {
 
+	/**
+	 * Invokes the method from a map of methods given a command.
+	 * @param obj the method being invoked
+	 * @param methodsMap the map which the methods are stored in
+	 * @param command the method invoked from the client
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
 	public static void invokeMethod(Object obj, Map<String, Method> methodsMap, Commands command) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
 		if ( command.getType() != Commands.CommandType.FROM_CLIENT ||
@@ -42,7 +53,15 @@ public class Utils {
 			System.out.println("Command not found");
 	}
 
-
+	/**
+	 * Invokes the method from a map of methods given a command.
+	 * @param obj the method being invoked
+	 * @param methodsMap the map which the methods are stored in
+	 * @param command the method invoked from the client
+	 * @param args array of arguments passed
+	 * @param isArgumentNumberChecked flag to check if all number of arguments have been fulfilled
+	 * @throws IncorrectNumberOfArgumentsException
+	 */
 	public static void invokeMethod(Object obj,  Map<String, Method> methodsMap, Commands command, String[] args, boolean isArgumentNumberChecked )
 			throws IncorrectNumberOfArgumentsException {
 		if (command.getType() != Commands.CommandType.FROM_CLIENT ||
@@ -77,6 +96,12 @@ public class Utils {
 	}
 
 
+	/**
+	 * Checks the number of arguments
+	 * @param args array of arguments being checked
+	 * @param numArgs the length to be compared to
+	 * @throws IncorrectNumberOfArgumentsException
+	 */
 	private static void checkArgsNum( Object[] args, int... numArgs ) throws IncorrectNumberOfArgumentsException {
 		int argsNum = args.length;
 
@@ -87,6 +112,12 @@ public class Utils {
 
 	//Utils for files 
 
+	/**
+	 * Sends a file through a stream
+	 * @param outStream the output stream to send
+	 * @param file file to be sent
+	 * @throws IOException
+	 */
 	public static void sendFile( ObjectOutput outStream, File file ) throws IOException
 	{
 		FileInputStream fileInStream = new FileInputStream( file );
@@ -106,6 +137,12 @@ public class Utils {
 	}
 
 
+	/**
+	 * Receives a file through a stream
+	 * @param inStream the input stream tor receive
+	 * @return file size
+	 * @throws IOException
+	 */
 	public static byte[] receiveFile( ObjectInput inStream ) throws IOException
 	{
 		int fileSize = inStream.readInt();
@@ -116,6 +153,13 @@ public class Utils {
 		return buffer;
 	}
 
+
+	/**
+	 * Creates a file given a buffer and a path
+	 * @param buffer given buffer
+	 * @param filePath path file
+	 * @throws IOException
+	 */
 	public static void createFile( byte[] buffer, String filePath ) throws IOException
 	{
 
@@ -132,7 +176,10 @@ public class Utils {
 		}
 	}
 
-
+	/**
+	 * Creates a directory given a path
+	 * @param path given path
+	 */
 	public static void createDirectories(String path) {
 		try
 		{
@@ -144,6 +191,12 @@ public class Utils {
 		}
 	}
 
+
+	/**
+	 * Saves a given object to a file
+	 * @param obj given object
+	 * @param file given file
+	 */
 	public static void saveToFile(Object obj , String file){
 		try (FileOutputStream fos = new FileOutputStream(file);
 				ObjectOutputStream oos = new ObjectOutputStream(fos)){
@@ -154,6 +207,12 @@ public class Utils {
 		}
 	}
 
+
+	/**
+	 * Loads an object/ objects given a file
+	 * @param file given file
+	 * @return the object file
+	 */
 	public static Object loadFromFile(String file){
 
 		try ( FileInputStream fis = new FileInputStream( file );
@@ -175,6 +234,11 @@ public class Utils {
 	}
 
 
+	/**
+	 * Creates a new file given a file
+	 * @param file given file
+	 * @return a new file if the file is existent, false otherwise
+	 */
 	public static boolean createNewFile(File file) {
 
 		try {

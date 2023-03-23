@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Class to represent a server thread.
+ */
 public class ServerThread extends Thread {
 
 	private final Socket socket;
@@ -23,6 +25,9 @@ public class ServerThread extends Thread {
 		this.socket = clientSocket;
 	}
 
+	/**
+	 * Start the threads and our API given a socket. We also do the authentication from the client here, and summon all out methods from a map.
+	 */
 	public void run(){
 
 		try{

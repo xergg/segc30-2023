@@ -6,6 +6,9 @@ import java.net.ServerSocket;
 import lib.enums.Paths;
 import lib.utils.Utils;
 
+/**
+ * Class that iniciates the server for Tintolmarket.
+ */
 public class TintolmarketServer {
 
 	static
@@ -34,6 +37,10 @@ public class TintolmarketServer {
 		server.startServer( port );
 	}
 
+	/**
+	 * starts our server with the given port, usually 12345
+	 * @param port
+	 */
 	private void startServer(int port) {
 
 		ServerSocket serverSocket = null;

@@ -1,5 +1,8 @@
 package lib.enums;
 
+/**
+ * Enum that has explicit paths
+ */
 public enum Paths {
         //Users
         USER_DIRECTORY("./data/server-data/users"),
@@ -17,10 +20,19 @@ public enum Paths {
 
     private final String path;
 
+    /**
+     * constructor with a given path
+     * @param path given path
+     */
     Paths (String path) {
         this.path = path ;
     }
 
+
+    /**
+     * returns a path
+     * @return given path
+     */
     public String getPath()
     {
         return path;

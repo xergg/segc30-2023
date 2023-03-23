@@ -29,7 +29,9 @@ import lib.enums.Commands;
 import lib.enums.Paths;
 import lib.utils.Utils;
 
-
+/**
+ * Server's API. Most methods for our server are here.
+ */
 public class TintolmarketServer_API {
 
 	private static final File uFile = new File("users.txt");
@@ -37,11 +39,22 @@ public class TintolmarketServer_API {
 	private final ObjectInput inStream;
 	private final ObjectOutput outStream;
 
+	/**
+	 * Basic constructor with a socket so input and output stream can be used
+	 * @param socket given socket
+	 * @throws IOException
+	 */
 	public TintolmarketServer_API(Socket socket) throws IOException {
 		outStream = new ObjectOutputStream(socket.getOutputStream());
 		inStream = new ObjectInputStream(socket.getInputStream());
 	}
 
+	/**
+	 * Authentication method to login our client.
+	 * @return client id if authenticated, "" otherwise
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public String authentication() throws IOException, ClassNotFoundException{
 
 		uFile.createNewFile();
@@ -56,6 +69,11 @@ public class TintolmarketServer_API {
 		return clientAccess ? clientID : "";
 	}
 
+	/**
+	 * Saves a client and its password to a file
+	 * @param currentClient current client id
+	 * @param password current client password
+	 */
 	public static void saveToFile(String currentClient, String password) {
 		String saveU = currentClient + "/" + password + "\n";
 
@@ -74,6 +92,13 @@ public class TintolmarketServer_API {
 		}
 	}
 
+	/**
+	 * Functions so that the client can login
+	 * @param clientID given client id
+	 * @param password given client password
+	 * @return true if the client is registered and the password is correct
+	 * @throws IOException
+	 */
 	private boolean login(String clientID, String password) throws IOException {
 
 		BufferedReader br = new BufferedReader(new FileReader(uFile));
@@ -99,6 +124,15 @@ public class TintolmarketServer_API {
 		return registered ? passCorrect : true;
 	}
 
+	/**
+	 * Invokes the methods from a map
+	 * @param skelmethods map with the methods
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public void invoke(Map<String, Method> skelmethods) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, IOException {
 		Commands command = (Commands) inStream.readObject();
 
@@ -108,7 +142,12 @@ public class TintolmarketServer_API {
 
 		invokeMethod(this, skelmethods, command);
 	}
-	//DONE
+	
+	/**
+	 * Adds wine to the server with an image, given a user id.
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public void add () throws ClassNotFoundException, IOException  {
 
 		String error = "" ;
@@ -158,7 +197,12 @@ public class TintolmarketServer_API {
 		}
 
 	}
-	//DONE
+	
+	/**
+	 * Given a a seller, and a wine id, posts a listing for the selling of the wine.
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void sell () throws IOException, ClassNotFoundException {
 
 		String error = "";
@@ -204,7 +248,11 @@ public class TintolmarketServer_API {
 		} 
 	}
 	
-	//TODO
+	/**
+	 * Checks the wine and all its characteristics such as name, average rating, sales.
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void view () throws IOException, ClassNotFoundException {
 		//1
 		String error = "";
@@ -250,7 +298,12 @@ public class TintolmarketServer_API {
 		}
 
 	}
-	//DONE
+	
+	/**
+	 * Given a buyer, a seller and a wine, the buyer makes a purchase from the seller for the specific wine.
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void buy () throws IOException, ClassNotFoundException {
 		String error = "";
 		String userID = (String) inStream.readObject();
@@ -308,7 +361,11 @@ public class TintolmarketServer_API {
 		}		
 	}
 
-	//DONE
+	/**
+	 * Checks the user's balance.
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void wallet () throws IOException, ClassNotFoundException {
 		String error = "";
 		String userID = (String) inStream.readObject();
@@ -338,7 +395,11 @@ public class TintolmarketServer_API {
 			
 	}
 
-	//DONE
+	/**
+	 * Classifies a given wine.
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void classify () throws IOException, ClassNotFoundException {
 
 		String error = "Wine can only be classified between 0 and 5 stars";
@@ -374,6 +435,11 @@ public class TintolmarketServer_API {
 
 	}
 	//precisa verificar
+	/**
+	 * Sends a message to another user
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void talk () throws IOException, ClassNotFoundException {
 
 		String error = "";
@@ -409,7 +475,11 @@ public class TintolmarketServer_API {
 		}
 
 	}
-	//DONE
+	/**
+	 * Reads all the unread messages that were sent to the user.
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void read () throws IOException, ClassNotFoundException{
 		
 		String error = "";

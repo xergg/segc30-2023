@@ -8,8 +8,24 @@ import exceptions.InvalidQuantityPriceException;
 import exceptions.NotEnoughMoneyException;
 import exceptions.NotEnoughQuantitiesException;
 
+/**
+ * A handler for sales.
+ */
 public class SaleHandler {
 
+	/**
+	 * Given a buyer Id and a seller id, makes a sale for a specified quantity for the specificed wine
+	 * @param userID given buyer id
+	 * @param seller given seller id
+	 * @param wineID given wine id
+	 * @param quantity quantity to be bought
+	 * @throws WineNotFoundException
+	 * @throws NullArgumentException
+	 * @throws NotEnoughQuantitiesException
+	 * @throws NotEnoughMoneyException
+	 * @throws SameUserException
+	 * @throws InvalidQuantityPriceException
+	 */
 	public static void buy(String userID, String seller, String wineID, int quantity) throws WineNotFoundException, NullArgumentException, 
 	NotEnoughQuantitiesException, NotEnoughMoneyException, SameUserException, InvalidQuantityPriceException {
 		if(quantity >= 0){
@@ -41,6 +57,17 @@ public class SaleHandler {
 	}
 
 
+	/**
+	 * Adds stock to the wine from the seller.
+	 * @param wineID given wine id
+	 * @param value value of the wine
+	 * @param userID seller id
+	 * @param quantity new quantity to be added to the current stock.
+	 * @throws NullArgumentException
+	 * @throws WineNotFoundException
+	 * @throws WineDoesNotExistException
+	 * @throws InvalidQuantityPriceException
+	 */
 	public static void addStock(String wineID, double value, String userID, int quantity) throws NullArgumentException, WineNotFoundException, WineDoesNotExistException, InvalidQuantityPriceException {
 
 		if(!WineCatalog.exists(wineID))

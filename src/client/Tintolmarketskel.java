@@ -14,6 +14,9 @@ import lib.enums.Commands;
 import lib.enums.Paths;
 import lib.utils.Utils;
 
+/**
+ * Client side of Tintolmarket, with most of the fucntion for it, hence the skel name.
+ */
 public class Tintolmarketskel {
 
 	private String username;
@@ -21,9 +24,20 @@ public class Tintolmarketskel {
 	private ObjectOutputStream outStream;
 	private Socket socket;
 
-
+	/**
+	 * constructor
+	 */
 	public Tintolmarketskel() {}
 
+
+	/**
+	 * Connects the user to the server
+	 * @param username given user id
+	 * @param host given host
+	 * @param tcpPort given tcp port
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	public void connect(String username, String host, int tcpPort) throws UnknownHostException, IOException {
 		this.socket = new Socket(host, tcpPort);
 		inStream = new ObjectInputStream(this.socket.getInputStream() );
@@ -31,12 +45,24 @@ public class Tintolmarketskel {
 		this.username = username;
 	}	
 
+	/**
+	 * Closes connection to the server
+	 * @throws IOException
+	 */
 	public void close() throws IOException {
 		outStream.close();
 		inStream.close();
 		socket.close();
 	}
 
+	/**
+	 * Logs in the user given an username and a password
+	 * @param username given username
+	 * @param password given password
+	 * @return true if authenticated, false otherwise
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public Commands login(String username, String password) throws IOException, ClassNotFoundException {
 		//ClientID
 		outStream.writeObject(username);
@@ -48,6 +74,14 @@ public class Tintolmarketskel {
 		return auth;
 	}
 
+
+	/**
+	 * Adds a wine given a wine id and an image
+	 * @param wineID given wine id
+	 * @param filename given image
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void add (String wineID, String filename) throws IOException, ClassNotFoundException {
 
 		File image = new File(filename);
@@ -76,6 +110,15 @@ public class Tintolmarketskel {
 		}			
 	}
 
+
+	/**
+	 * Makes a listing for a sale given a wine id, a value for the wine and the stock for it
+	 * @param wineID given wine id
+	 * @param valueS given sale wine value
+	 * @param quantityS given quantity wine value
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void sell (String wineID, String valueS, String quantityS) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.SELL);
@@ -105,6 +148,12 @@ public class Tintolmarketskel {
 		}
 	}
 
+	/**
+	 * View all sales, classification given a wine id
+	 * @param wineID given wine id
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void view (String wineID) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.VIEW);//1
@@ -144,6 +193,15 @@ public class Tintolmarketskel {
 		}
 	}
 
+
+	/**
+	 * Given a wine id, and a seller, buy that wine from the seller
+	 * @param wineID given id
+	 * @param seller given seller
+	 * @param quantityS given quantity to buy
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void buy (String wineID, String seller, String quantityS) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.BUY);
@@ -176,7 +234,9 @@ public class Tintolmarketskel {
 
 	}
 	
-
+	/**
+	 * Checks the user's balance
+	 */
 	public void wallet() throws IOException, ClassNotFoundException {
 		outStream.writeObject(Commands.WALLET);
 		outStream.writeObject(username);
@@ -198,7 +258,13 @@ public class Tintolmarketskel {
 	}
 	
 
-
+	/**
+	 * Classifies a given wine with the stars to be given
+	 * @param wineID given wine id
+	 * @param starsS given stars to classify the wine
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void classify (String wineID, String starsS) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.CLASSIFY);
@@ -226,6 +292,14 @@ public class Tintolmarketskel {
 
 		
 	}
+
+	/**
+	 * Send a message to another user
+	 * @param user given user id to send the message to
+	 * @param msg given message to send
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void talk (String user, String msg) throws IOException, ClassNotFoundException {
 
 		outStream.writeObject(Commands.TALK);
@@ -249,6 +323,12 @@ public class Tintolmarketskel {
 		}
 	}
 
+
+	/**
+	 * Read all unread messages
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void read () throws IOException, ClassNotFoundException{
 	
 		outStream.writeObject(Commands.READ);

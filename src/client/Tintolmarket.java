@@ -10,6 +10,9 @@ import java.util.Map;
 import java.util.Scanner;
 import lib.enums.Commands;
 
+/**
+ * Client side for Tintolmarket
+ */
 public class Tintolmarket {
 
 	private static final String WRONG_NUMBER_OF_ARGUMENTS = "Wrong number of arguments";
@@ -91,7 +94,11 @@ public class Tintolmarket {
 		}
 	}
 
-
+	/**
+	 * Read the command typed from the user input
+	 * @param command given user input command
+	 * @param stubMethodsMap
+	 */
 	private static void readCommand(String command, Map<String, Method> stubMethodsMap) {
 
 		if(command.equals("quit"))
@@ -116,7 +123,11 @@ public class Tintolmarket {
 		}
 	}
 
-
+	/**
+	 * gets the command
+	 * @param command given command
+	 * @return
+	 */
 	private static Commands getEnum(char command) {
 		
 		Commands returnComm = Commands.NOT_FOUND;
@@ -129,7 +140,10 @@ public class Tintolmarket {
 		return returnComm;
 	}
 
-
+	/**
+	 * print menu
+	 * @return printed menu
+	 */
 	private static String menuToString() {
 		return "Available operations: \n"+
 				"- add <wine> <image> \n" + 
